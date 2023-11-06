@@ -1,6 +1,6 @@
-# universal_videoplayer
+# flutter_meedu_videoplayer
 
-<a href="https://www.buymeacoffee.com/hckdevelops" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+<a href="https://www.buymeacoffee.com/zezo357" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 <a href='https://ko-fi.com/zezo357' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' />
 
 <a target="blank" href="https://pub.dev/packages/flutter_meedu_videoplayer"><img src="https://img.shields.io/pub/v/flutter_meedu_videoplayer?include_prereleases&style=flat-square"/></a>
@@ -14,18 +14,18 @@ We have implemented a cross-platform video player, which provides a seamless vid
 - [video_player](https://pub.dev/packages/video_player) for Android, iOS, and web.
 - [fvp](https://pub.dev/packages/fvp) for desktop platforms.
 
-👋 👉 <b>[Complete documentation here](https://abhilashsajeev.github.io/universal_videoplayer/)</b>
+👋 👉 <b>[Complete documentation here](https://zezo357.github.io/flutter_meedu_videoplayer/)</b>
 
 <table>
-<caption><h4><a href="https://abhilashsajeev.github.io/flutter_meedu_videoplayer_example/">Flutter Web Demo</a></h4></caption>
+<caption><h4><a href="https://zezo357.github.io/flutter_meedu_videoplayer_example/">Flutter Web Demo</a></h4></caption>
 
   <tbody>
     <tr>
-      <td rowspan="2"><img src="https://abhilashsajeev.github.io/flutter_meedu_videoplayer/assets/q2.gif" alt="meedu_player" width="160" /></td>     
-      <td><img src="https://abhilashsajeev.github.io/flutter_meedu_videoplayer/assets/full.gif" alt="meedu_player" width="300" /></td>      
+      <td rowspan="2"><img src="https://zezo357.github.io/flutter_meedu_videoplayer/assets/q2.gif" alt="meedu_player" width="160" /></td>     
+      <td><img src="https://zezo357.github.io/flutter_meedu_videoplayer/assets/full.gif" alt="meedu_player" width="300" /></td>      
     </tr>   
     <tr>
-      <td><img src="https://abhilashsajeev.github.io/flutter_meedu_videoplayer/assets/playing_video.png" alt="meedu_player" width="300" /></td>     
+      <td><img src="https://zezo357.github.io/flutter_meedu_videoplayer/assets/playing_video.png" alt="meedu_player" width="300" /></td>     
     </tr>  
   </tbody>
 </table>
@@ -201,15 +201,12 @@ void main() {
   runApp(MyApp());
 }
 ```
-
 ## Android (replace original video_player with fvp one)
 
 1. Just add this package and set androidUseFVP to true in initMeeduPlayer
-
 ## iOS (replace original video_player with fvp one)
 
 1. Just add this package in case you set iosUseFVP to true in initMeeduPlayer
-
 ### hls on web
 
 Add to `pubspec.yaml`
