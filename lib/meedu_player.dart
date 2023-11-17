@@ -14,7 +14,6 @@ export 'src/helpers/enabled_controls.dart';
 export 'src/helpers/enabled_overlays.dart';
 export 'src/helpers/custom_callbacks.dart';
 
-export 'src/helpers/durations.dart';
 export 'src/helpers/utils.dart';
 
 export 'package:video_player/video_player.dart';
