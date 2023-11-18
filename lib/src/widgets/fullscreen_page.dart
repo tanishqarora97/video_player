@@ -23,7 +23,7 @@ class _MeeduPlayerFullscreenPageState extends State<MeeduPlayerFullscreenPage> {
 
           return false;
         }
-        return true;
+        return false;
       },
       child: Scaffold(
         backgroundColor: Colors.black,
