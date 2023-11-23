@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
-
+import 'package:flutter_meedu/rx.dart';
 class PlayerSlider extends StatelessWidget {
   const PlayerSlider({Key? key}) : super(key: key);
 

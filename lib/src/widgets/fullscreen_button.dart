@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
-
+import 'package:flutter_meedu/rx.dart';
 class FullscreenButton extends StatelessWidget {
   final double size;
   const FullscreenButton({Key? key, this.size = 30}) : super(key: key);

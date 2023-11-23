@@ -154,10 +154,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_meedu
-      sha256: b3dd688ae07ce4b9e9057393e44e75a1fc214b497f265b00f251ec896072b55d
+      sha256: "8b13f716d63e71457bd6142069f23288d6da8b8071a2354dd7e1f56681056e34"
       url: "https://pub.dev"
     source: hosted
-    version: "8.5.0"
+    version: "9.0.7"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -204,10 +204,10 @@ packages:
     dependency: transitive
     description:
       name: fvp
-      sha256: "11bcf5ff99547b1f786d64e68dfb7ee5a2b5cc9563b423655231f0d3e944cf22"
+      sha256: c2b3d4be05a9185afb3e51920662ab6fd4f95898bc9d86777ecbc4b12bac7a47
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.0"
+    version: "0.11.0"
   html:
     dependency: transitive
     description:
@@ -284,10 +284,10 @@ packages:
     dependency: transitive
     description:
       name: meedu
-      sha256: "04b05b8c244a432b5c9ceb1e60d74fec81b4e95742f0e6b5d2d37148445313d1"
+      sha256: c189d65d7fd3ba3435bc046531ed2eee30ce389a8510161c508c23c30a8d22bd
       url: "https://pub.dev"
     source: hosted
-    version: "8.1.2"
+    version: "9.0.1"
   meta:
     dependency: transitive
     description:
@@ -396,10 +396,10 @@ packages:
     dependency: transitive
     description:
       name: plugin_platform_interface
-      sha256: da3fdfeccc4d4ff2da8f8c556704c08f912542c5fb3cf2233ed75372384a034d
+      sha256: f4f88d4a900933e7267e2b353594774fc0d07fb072b47eedcd5b54e1ea3269f8
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.6"
+    version: "2.1.7"
   screen_brightness:
     dependency: transitive
     description:
@@ -500,10 +500,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_web
-      sha256: d762709c2bbe80626ecc819143013cc820fa49ca5e363620ee20a8b15a3e3daf
+      sha256: "7b15ffb9387ea3e237bb7a66b8a23d2147663d391cafc5c8f37b2e7b4bde5d21"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.1"
+    version: "2.2.2"
   shared_preferences_windows:
     dependency: transitive
     description:
@@ -725,5 +725,5 @@ packages:
     source: hosted
     version: "2.0.2"
 sdks:
-  dart: ">=3.2.0-194.0.dev <4.0.0"
-  flutter: ">=3.13.0"
+  dart: ">=3.2.0 <4.0.0"
+  flutter: ">=3.16.0"

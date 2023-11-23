@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
 import 'package:universal_videoplayer/src/widgets/lock_button.dart';
 import 'package:universal_platform/universal_platform.dart';
-
+import 'package:flutter_meedu/rx.dart';
 class PrimaryBottomControls extends StatelessWidget {
   final Responsive responsive;
   const PrimaryBottomControls({Key? key, required this.responsive})

@@ -103,8 +103,8 @@ class _PickFileExamplePageState extends State<PickFileExamplePage> {
               }
             },
             child: Container(
-              width: context.width * 0.80,
-              height: context.height * 0.30,
+              width: MediaQuery.of(context).size.width * 0.80,
+              height: MediaQuery.of(context).size.height * 0.30,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(8.0),

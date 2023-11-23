@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter_meedu/rx.dart';
 import 'package:flutter/material.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
 

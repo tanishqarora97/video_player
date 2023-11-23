@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
-
+import 'package:flutter_meedu/rx.dart';
 class PipButton extends StatelessWidget {
   final Responsive responsive;
   const PipButton({Key? key, required this.responsive}) : super(key: key);

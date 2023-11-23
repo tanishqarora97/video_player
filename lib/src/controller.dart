@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_meedu/meedu.dart';
+import 'package:flutter_meedu/rx.dart';
 import 'package:universal_videoplayer/src/helpers/desktop_pip_bk.dart';
 import 'package:universal_videoplayer/src/native/pip_manager.dart';
 import 'package:universal_videoplayer/src/video_player_used.dart';
