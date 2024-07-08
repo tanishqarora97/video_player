@@ -24,6 +24,8 @@ class _MeeduPlayerFullscreenPageState extends State<MeeduPlayerFullscreenPage> {
 
           return false;
         }
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
         SystemChrome.setPreferredOrientations(
             [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
