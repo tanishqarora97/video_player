@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
 
 class BasicExampleWithLoopingPage extends StatefulWidget {
-  const BasicExampleWithLoopingPage({Key? key}) : super(key: key);
+  const BasicExampleWithLoopingPage({super.key});
 
   @override
   State<BasicExampleWithLoopingPage> createState() =>

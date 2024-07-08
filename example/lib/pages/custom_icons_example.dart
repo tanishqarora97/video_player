@@ -5,7 +5,7 @@ import 'package:universal_videoplayer/meedu_player.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 class CustomIconsExamplePage extends StatefulWidget {
-  const CustomIconsExamplePage({Key? key}) : super(key: key);
+  const CustomIconsExamplePage({super.key});
 
   @override
   State<CustomIconsExamplePage> createState() => _CustomIconsExamplePageState();

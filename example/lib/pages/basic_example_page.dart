@@ -6,7 +6,7 @@ import 'package:universal_videoplayer/meedu_player.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 class BasicExamplePage extends StatefulWidget {
-  const BasicExamplePage({Key? key}) : super(key: key);
+  const BasicExamplePage({super.key});
 
   @override
   State<BasicExamplePage> createState() => _BasicExamplePageState();

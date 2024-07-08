@@ -13,7 +13,7 @@ const videos = [
 ];
 
 class FullscreenExamplePage extends StatefulWidget {
-  const FullscreenExamplePage({Key? key}) : super(key: key);
+  const FullscreenExamplePage({super.key});
 
   @override
   State<FullscreenExamplePage> createState() => _FullscreenExamplePageState();

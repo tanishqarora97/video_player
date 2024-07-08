@@ -4,7 +4,7 @@ import 'package:universal_videoplayer/meedu_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class GridViewExample extends StatefulWidget {
-  const GridViewExample({Key? key}) : super(key: key);
+  const GridViewExample({super.key});
 
   @override
   State<GridViewExample> createState() => _GridViewExampleState();
@@ -37,13 +37,13 @@ class _GridViewExampleState extends State<GridViewExample>
 
 class VideoItem extends StatefulWidget {
   final String uniqueKey;
-  const VideoItem({Key? key, required this.uniqueKey}) : super(key: key);
+  const VideoItem({super.key, required this.uniqueKey});
 
   @override
-  _VideoItemState createState() => _VideoItemState();
+  VideoItemState createState() => VideoItemState();
 }
 
-class _VideoItemState extends State<VideoItem>
+class VideoItemState extends State<VideoItem>
     with AutomaticKeepAliveClientMixin {
   final MeeduPlayerController _controller = MeeduPlayerController(
       screenManager: const ScreenManager(orientations: [
@@ -69,8 +69,6 @@ class _VideoItemState extends State<VideoItem>
   @override
   void dispose() {
     _controller.dispose();
-
-    print("❌ dispose video player");
     super.dispose();
   }
 

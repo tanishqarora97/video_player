@@ -18,7 +18,7 @@ Future<String> getConvertFilesNameToLinks(
   final RegExp netRegxUrl = RegExp(r'^(http|https):\/\/([\w.]+\/?)\S*');
 
   Map<String, List<String?>> downloadLinks = {};
-  List<RegExpMatch> ListOfLinks =
+  List<RegExpMatch> listOfLinks =
       regExpListOfLinks.allMatches(content).toList();
   String baseUrl = link;
   String mappingKey = video ? "video" : "audio";
@@ -30,7 +30,7 @@ Future<String> getConvertFilesNameToLinks(
       return "${baseUrl.substring(0, baseUrl.lastIndexOf('/'))}/${e.group(1) ?? ""}";
     }
   });
-  downloadLinks[mappingKey] = ListOfLinks.map((e) {}).toList();
+  downloadLinks[mappingKey] = listOfLinks.map((e) {}).toList();
   return content;
 }
 
@@ -135,13 +135,13 @@ Future<List<Quality>> fromM3u8PlaylistUrl(
       sourceUrls[quality] = playlistUrl;
     }
   }
-  List<Quality> Qualities = [];
+  List<Quality> qualities = [];
   addAutoSource() async {
     final File file = File(path.join(directoryPath!, 'hls_Auto.m3u8'));
     file.writeAsStringSync(
       await getConvertFilesNameToLinks(link: m3u8, content: content),
     );
-    Qualities.add(Quality(
+    qualities.add(Quality(
       label: "Auto",
       isFile: true,
       file: file,
@@ -154,7 +154,7 @@ Future<List<Quality>> fromM3u8PlaylistUrl(
   for (String key in sources.keys) {
     //talker.info(key);
     //talker.info(sources[key].readAsStringSync());
-    Qualities.add(Quality(
+    qualities.add(Quality(
       label: key,
       file: sources[key]!,
       isFile: true,
@@ -162,7 +162,7 @@ Future<List<Quality>> fromM3u8PlaylistUrl(
     ));
   }
   for (String key in sourceUrls.keys) {
-    Qualities.add(Quality(
+    qualities.add(Quality(
       label: key,
       url: sourceUrls[key]!,
       isFile: false,
@@ -171,12 +171,12 @@ Future<List<Quality>> fromM3u8PlaylistUrl(
   }
 
   //await addAutoSource();
-  Qualities.add(Quality(
+  qualities.add(Quality(
     label: "Auto",
     url: m3u8,
     httpHeaders: httpHeaders,
   ));
-  return Qualities;
+  return qualities;
 }
 
 class Quality {
@@ -207,7 +207,7 @@ class Quality {
 }
 
 class M3u8ExamplePage extends StatefulWidget {
-  const M3u8ExamplePage({Key? key}) : super(key: key);
+  const M3u8ExamplePage({super.key});
 
   @override
   State<M3u8ExamplePage> createState() => _M3u8ExamplePageState();
@@ -237,7 +237,6 @@ class _M3u8ExamplePageState extends State<M3u8ExamplePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     // listen the video position
@@ -414,7 +413,6 @@ class _M3u8ExamplePageState extends State<M3u8ExamplePage> {
                                   try {
                                     await _playM3u8Video(url.text);
                                   } catch (e) {
-                                    print(e);
                                   }
 
                                   _loading.value = false;

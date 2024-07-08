@@ -273,16 +273,6 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
       ),
     );
   }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }
 
 class MeeduPlayerProvider extends InheritedWidget {

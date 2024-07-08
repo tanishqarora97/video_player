@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
 
 class CustomSizesExamplePage extends StatefulWidget {
-  const CustomSizesExamplePage({Key? key}) : super(key: key);
+  const CustomSizesExamplePage({super.key});
 
   @override
   State<CustomSizesExamplePage> createState() => _CustomSizesExamplePageState();

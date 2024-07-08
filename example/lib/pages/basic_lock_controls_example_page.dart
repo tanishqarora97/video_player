@@ -6,7 +6,7 @@ import 'package:universal_videoplayer/meedu_player.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 class BasicLockControlsExamplePage extends StatefulWidget {
-  const BasicLockControlsExamplePage({Key? key}) : super(key: key);
+  const BasicLockControlsExamplePage({super.key});
 
   @override
   State<BasicLockControlsExamplePage> createState() =>

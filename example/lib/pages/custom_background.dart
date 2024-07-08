@@ -6,7 +6,7 @@ import 'package:universal_videoplayer/meedu_player.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 class CustomBackgroundPage extends StatefulWidget {
-  const CustomBackgroundPage({Key? key}) : super(key: key);
+  const CustomBackgroundPage({super.key});
 
   @override
   State<CustomBackgroundPage> createState() => _CustomBackgroundPageState();

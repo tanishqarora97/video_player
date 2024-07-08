@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
 
 class CustomControlsExamplePage extends StatefulWidget {
-  const CustomControlsExamplePage({Key? key}) : super(key: key);
+  const CustomControlsExamplePage({super.key});
 
   @override
   State<CustomControlsExamplePage> createState() =>
@@ -46,9 +46,7 @@ class _CustomControlsExamplePageState extends State<CustomControlsExamplePage> {
 
     ///use this stream to listen the player data events like completed, playing, paused
     _playerEventSubs =
-        _meeduPlayerController.onPlayerStatusChanged.listen((event) {
-      print(event);
-    });
+        _meeduPlayerController.onPlayerStatusChanged.listen((event) {});
   }
 
   @override
@@ -81,52 +79,52 @@ class _CustomControlsExamplePageState extends State<CustomControlsExamplePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          const SizedBox(width: 5),
-                          PlayPauseButton(
-                            size: responsive.buttonSize(),
-                          ),
-                          const SizedBox(width: 5),
+                      // Row(
+                      //   children: [
+                      //     const SizedBox(width: 5),
+                      //     PlayPauseButton(
+                      //       size: responsive.buttonSize(),
+                      //     ),
+                      //     const SizedBox(width: 5),
 
-                          // START VIDEO DURATION
-                          RxBuilder(
-                            (__) => Text(
-                              "${controller.duration.value.inMinutes >= 60 ? printDurationWithHours(controller.position.value) : printDuration(controller.position.value)}/${controller.duration.value.inMinutes >= 60 ? printDurationWithHours(controller.duration.value) : printDuration(controller.duration.value)}",
-                              style: textStyle,
-                            ),
-                          ),
+                      //     // START VIDEO DURATION
+                      //     RxBuilder(
+                      //       (__) => Text(
+                      //         "${controller.duration.value.inMinutes >= 60 ? printDurationWithHours(controller.position.value) : printDuration(controller.position.value)}/${controller.duration.value.inMinutes >= 60 ? printDurationWithHours(controller.duration.value) : printDuration(controller.duration.value)}",
+                      //         style: textStyle,
+                      //       ),
+                      //     ),
 
-                          // START VIDEO DURATION
+                      //     // START VIDEO DURATION
 
-                          if (controller.enabledButtons.muteAndSound)
-                            SizedBox(
-                              width: responsive.wp(40),
-                              child: RxBuilder(
-                                (__) => Row(
-                                  children: [
-                                    Expanded(
-                                        child: MuteSoundButton(
-                                            responsive: responsive)),
-                                    !controller.mute.value
-                                        ? Expanded(
-                                            flex: 2,
-                                            child: Slider(
-                                              value: controller.volume.value,
-                                              onChanged: (value) =>
-                                                  controller.setVolume(value),
-                                            ),
-                                          )
-                                        : const Expanded(
-                                            flex: 2,
-                                            child: SizedBox(),
-                                          ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
+                      //     if (controller.enabledButtons.muteAndSound)
+                      //       SizedBox(
+                      //         width: responsive.wp(40),
+                      //         child: RxBuilder(
+                      //           (__) => Row(
+                      //             children: [
+                      //               Expanded(
+                      //                   child: MuteSoundButton(
+                      //                       responsive: responsive)),
+                      //               !controller.mute.value
+                      //                   ? Expanded(
+                      //                       flex: 2,
+                      //                       child: Slider(
+                      //                         value: controller.volume.value,
+                      //                         onChanged: (value) =>
+                      //                             controller.setVolume(value),
+                      //                       ),
+                      //                     )
+                      //                   : const Expanded(
+                      //                       flex: 2,
+                      //                       child: SizedBox(),
+                      //                     ),
+                      //             ],
+                      //           ),
+                      //         ),
+                      //       ),
+                      //   ],
+                      // ),
                       Row(
                         children: [
                           if (controller.bottomRight != null) ...[

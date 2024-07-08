@@ -5,7 +5,7 @@ import 'package:universal_videoplayer/meedu_player.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 class OnePageExample extends StatefulWidget {
-  const OnePageExample({Key? key}) : super(key: key);
+  const OnePageExample({super.key});
 
   @override
   State<OnePageExample> createState() => _OnePageExampleState();
@@ -102,13 +102,13 @@ class _OnePageExampleState extends State<OnePageExample> {
 }
 
 class PageTwo extends StatefulWidget {
-  const PageTwo({Key? key}) : super(key: key);
+  const PageTwo({super.key});
 
   @override
-  _PageTwoState createState() => _PageTwoState();
+  PageTwoState createState() => PageTwoState();
 }
 
-class _PageTwoState extends State<PageTwo> {
+class PageTwoState extends State<PageTwo> {
   final _meeduPlayerController = MeeduPlayerController(
     controlsStyle: ControlsStyle.primary,
   );

@@ -1,3 +1,6 @@
+analyzer:
+  errors:
+    no_wildcard_variable_uses: ignore
 include: package:flutter_lints/flutter.yaml
 
 # Additional information about this file can be found at

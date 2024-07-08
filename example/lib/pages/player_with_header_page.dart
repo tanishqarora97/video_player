@@ -4,7 +4,7 @@ import 'package:universal_videoplayer/meedu_player.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 class PlayerWithHeaderPage extends StatefulWidget {
-  const PlayerWithHeaderPage({Key? key}) : super(key: key);
+  const PlayerWithHeaderPage({super.key});
 
   @override
   State<PlayerWithHeaderPage> createState() => _PlayerWithHeaderPageState();
