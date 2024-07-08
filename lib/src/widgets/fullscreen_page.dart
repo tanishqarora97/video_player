@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
 
 class MeeduPlayerFullscreenPage extends StatefulWidget {
@@ -23,7 +24,11 @@ class _MeeduPlayerFullscreenPageState extends State<MeeduPlayerFullscreenPage> {
 
           return false;
         }
-        return false;
+        SystemChrome.setPreferredOrientations(
+            [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+            overlays: SystemUiOverlay.values);
+        return true;
       },
       child: Scaffold(
         backgroundColor: Colors.black,
