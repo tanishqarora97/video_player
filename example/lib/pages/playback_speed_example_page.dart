@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
 
 class PlayBackSpeedExamplePage extends StatefulWidget {
-  const PlayBackSpeedExamplePage({Key? key}) : super(key: key);
+  const PlayBackSpeedExamplePage({super.key});
 
   @override
   State<PlayBackSpeedExamplePage> createState() =>

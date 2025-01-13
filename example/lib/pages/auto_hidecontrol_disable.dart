@@ -5,7 +5,7 @@ import 'package:universal_videoplayer/meedu_player.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 class AutoHideControlsDisable extends StatefulWidget {
-  const AutoHideControlsDisable({Key? key}) : super(key: key);
+  const AutoHideControlsDisable({super.key});
 
   @override
   State<AutoHideControlsDisable> createState() =>

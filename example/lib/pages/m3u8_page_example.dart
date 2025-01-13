@@ -207,7 +207,7 @@ class Quality {
 }
 
 class M3u8ExamplePage extends StatefulWidget {
-  const M3u8ExamplePage({Key? key}) : super(key: key);
+  const M3u8ExamplePage({super.key});
 
   @override
   State<M3u8ExamplePage> createState() => _M3u8ExamplePageState();
@@ -237,7 +237,6 @@ class _M3u8ExamplePageState extends State<M3u8ExamplePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     // listen the video position

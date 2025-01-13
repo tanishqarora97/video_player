@@ -3,6 +3,8 @@
 // package as the core of your plugin.
 // ignore: avoid_web_libraries_in_flutter
 
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:web/web.dart' as web;
 

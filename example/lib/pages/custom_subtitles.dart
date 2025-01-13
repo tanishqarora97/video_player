@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
 
 class CustomNetworkWithSubtitlesPage extends StatefulWidget {
-  const CustomNetworkWithSubtitlesPage({Key? key}) : super(key: key);
+  const CustomNetworkWithSubtitlesPage({super.key});
 
   @override
   State<CustomNetworkWithSubtitlesPage> createState() =>

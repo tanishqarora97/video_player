@@ -4,7 +4,8 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_meedu/meedu.dart';
+
+import 'package:flutter_meedu/rx.dart';
 import 'package:universal_videoplayer/src/helpers/desktop_pip_bk.dart';
 import 'package:universal_videoplayer/src/native/pip_manager.dart';
 import 'package:universal_videoplayer/src/video_player_used.dart';
@@ -367,7 +368,7 @@ class MeeduPlayerController {
 
     //check each
     if (!desktopOrWeb && enabledControls.volumeSwipes) {
-      VolumeController().listener((newVolume) {
+      VolumeController.instance.addListener((newVolume) {
         volume.value = newVolume;
       });
     }
@@ -757,7 +758,7 @@ class MeeduPlayerController {
       _currentVolume.value = _videoPlayerController?.value.volume ?? 0;
     } else {
       try {
-        _currentVolume.value = await VolumeController().getVolume();
+        _currentVolume.value = await VolumeController.instance.getVolume();
       } catch (e) {
         customDebugPrint("currentVolume $e");
         //throw 'Failed to get current brightness';
@@ -796,7 +797,8 @@ class MeeduPlayerController {
         volumeUpdated();
       } else {
         try {
-          VolumeController().setVolume(volumeNew, showSystemUI: false);
+          VolumeController.instance.showSystemUI = false;
+          VolumeController.instance.setVolume(volumeNew);
         } catch (_) {
           customDebugPrint(_);
         }

@@ -16,7 +16,7 @@ class Quality {
 }
 
 class AutoFullScreenExamplePage extends StatefulWidget {
-  const AutoFullScreenExamplePage({Key? key}) : super(key: key);
+  const AutoFullScreenExamplePage({super.key});
 
   @override
   State<AutoFullScreenExamplePage> createState() =>

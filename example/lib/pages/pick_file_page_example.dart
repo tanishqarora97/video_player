@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
 
 class PickFileExamplePage extends StatefulWidget {
-  const PickFileExamplePage({Key? key}) : super(key: key);
+  const PickFileExamplePage({super.key});
 
   @override
   State<PickFileExamplePage> createState() => _PickFileExamplePageState();
@@ -84,6 +84,7 @@ class _PickFileExamplePageState extends State<PickFileExamplePage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Pick File"),
@@ -103,8 +104,8 @@ class _PickFileExamplePageState extends State<PickFileExamplePage> {
               }
             },
             child: Container(
-              width: context.width * 0.80,
-              height: context.height * 0.30,
+              width: size.width * 0.80,
+              height: size.height * 0.30,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(8.0),

@@ -5,7 +5,7 @@ import 'package:universal_videoplayer/meedu_player.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 class DisabledButtonsExample extends StatefulWidget {
-  const DisabledButtonsExample({Key? key}) : super(key: key);
+  const DisabledButtonsExample({super.key});
 
   @override
   State<DisabledButtonsExample> createState() => _DisabledButtonsExampleState();

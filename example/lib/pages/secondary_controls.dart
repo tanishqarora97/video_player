@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
 
 class SecondaryExamplePage extends StatefulWidget {
-  const SecondaryExamplePage({Key? key}) : super(key: key);
+  const SecondaryExamplePage({super.key});
 
   @override
   State<SecondaryExamplePage> createState() => _SecondaryExamplePageState();

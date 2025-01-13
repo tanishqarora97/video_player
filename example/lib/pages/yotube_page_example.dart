@@ -23,7 +23,6 @@ class CorsBypassClient extends http.BaseClient {
     final http.BaseRequest newRequest = http.Request(
         request.method,
         request.url.replace(
-            //TODO: change this cors-anywhere to your instance
             host: '',
             pathSegments: [uri.host, ...uri.pathSegments]))
       ..headers.addAll({
@@ -38,7 +37,7 @@ class CorsBypassClient extends http.BaseClient {
 }
 
 class YoutubeExamplePage extends StatefulWidget {
-  const YoutubeExamplePage({Key? key}) : super(key: key);
+  const YoutubeExamplePage({super.key});
 
   @override
   State<YoutubeExamplePage> createState() => _YoutubeExamplePageState();
@@ -64,7 +63,6 @@ class _YoutubeExamplePageState extends State<YoutubeExamplePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     // listen the video position
@@ -161,7 +159,6 @@ class _YoutubeExamplePageState extends State<YoutubeExamplePage> {
     await getYoutubeStreamUrl(youtubeUrl);
 
     _quality.value = _qualities[0];
-    print(_quality.value!.url);
     _setDataSource();
     // // ignore: use_build_context_synchronously
     // _controller.launchAsFullscreen(context,

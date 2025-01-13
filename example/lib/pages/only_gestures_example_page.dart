@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:universal_videoplayer/meedu_player.dart';
 
 class OnlyGesturesExamplePage extends StatefulWidget {
-  const OnlyGesturesExamplePage({Key? key}) : super(key: key);
+  const OnlyGesturesExamplePage({super.key});
 
   @override
   State<OnlyGesturesExamplePage> createState() =>
