@@ -1,7 +1,5 @@
 name: universal_videoplayer
-description: A cross Platform video player that uses video_player for android and ios and web, fvp for windows and linux and macos.
 version: 4.3.1
-homepage: "https://github.com/abhilashsajeev/universal_videoplayer"
 environment:
   sdk: ">=2.16.2 <4.0.0"
   flutter: ">=2.5.0"
@@ -34,7 +32,7 @@ dependencies:
   # window_manager:
   #   path: ../../window_manager
   # wakelock: ^0.6.1+2
-  wakelock_plus: 1.2.1
+  wakelock_plus: ^1.2.10
   shared_preferences: ^2.0.13
   path_provider: ^2.0.6
 
