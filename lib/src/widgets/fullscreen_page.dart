@@ -30,7 +30,7 @@ class _MeeduPlayerFullscreenPageState extends State<MeeduPlayerFullscreenPage> {
             [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
             overlays: SystemUiOverlay.values);
-        return true;
+        return false;
       },
       child: Scaffold(
         backgroundColor: Colors.black,
