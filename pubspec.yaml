@@ -32,7 +32,7 @@ dependencies:
   # window_manager:
   #   path: ../../window_manager
   # wakelock: ^0.6.1+2
-  wakelock_plus: ^1.2.10
+  wakelock_plus: ^1.2.4
   shared_preferences: ^2.0.13
   path_provider: ^2.0.6
 
