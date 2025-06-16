@@ -1,4 +1,4 @@
-import 'package:universal_videoplayer/bar.dart';
+import 'bar.dart';
 import 'package:flutter/material.dart';
 
 class ForwardAndRewindStyle {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu/rx/rx_builder.dart';
-import 'package:universal_videoplayer/meedu_player.dart';
+import '../../meedu_player.dart';
 
 class PipButton extends StatelessWidget {
   final Responsive responsive;

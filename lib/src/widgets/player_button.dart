@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:universal_videoplayer/meedu_player.dart';
+import '../../meedu_player.dart';
 
 class PlayerButton extends StatelessWidget {
   final double size;

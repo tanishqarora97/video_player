@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:universal_videoplayer/src/video_player_used.dart';
+import 'src/video_player_used.dart';
 import 'package:fvp/fvp.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:window_manager/window_manager.dart';

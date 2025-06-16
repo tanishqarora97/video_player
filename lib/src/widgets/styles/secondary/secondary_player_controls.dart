@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:universal_videoplayer/meedu_player.dart';
-import 'package:universal_videoplayer/src/widgets/styles/controls_container.dart';
-import 'package:universal_videoplayer/src/widgets/styles/secondary/secondary_bottom_controls.dart';
+import '../../../../meedu_player.dart';
+import '../controls_container.dart';
+import 'secondary_bottom_controls.dart';
 
 class SecondaryVideoPlayerControls extends StatelessWidget {
   final Responsive responsive;

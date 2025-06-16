@@ -1,6 +1,6 @@
 import 'package:auto_orientation/auto_orientation.dart';
 import 'package:flutter/services.dart';
-import 'package:universal_videoplayer/meedu_player.dart';
+import '../../meedu_player.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:fullscreen_window/fullscreen_window.dart';

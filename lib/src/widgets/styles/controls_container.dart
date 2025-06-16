@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu/rx/rx_builder.dart';
-import 'package:universal_videoplayer/meedu_player.dart';
-import 'package:universal_videoplayer/src/widgets/lock_button.dart';
+import '../../../meedu_player.dart';
+import '../lock_button.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:window_manager/window_manager.dart';
 
