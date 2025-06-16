@@ -23,14 +23,15 @@ apply plugin: 'com.android.library'
 
 android {
     namespace = "com.zezo357.flutter_meedu_videoplayer"
-    compileSdkVersion 31
+    compileSdkVersion 35 // Match your app's SDK version
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21 // Match your app's or raise from 16 if needed
     }
 }
+
