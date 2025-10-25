@@ -2,8 +2,5 @@
 class EnabledOverlays {
   final bool volume, brightness;
 
-  const EnabledOverlays({
-    this.volume = true,
-    this.brightness = true,
-  });
+  const EnabledOverlays({this.volume = true, this.brightness = true});
 }

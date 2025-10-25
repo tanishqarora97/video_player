@@ -18,9 +18,7 @@ class _ListViewExampleState extends State<ListViewExample>
     return Scaffold(
       appBar: AppBar(),
       body: ListView.builder(
-        itemBuilder: (_, index) => VideoItem(
-          uniqueKey: "$index",
-        ),
+        itemBuilder: (_, index) => VideoItem(uniqueKey: "$index"),
         itemCount: 6,
       ),
     );
@@ -41,10 +39,11 @@ class VideoItem extends StatefulWidget {
 class VideoItemState extends State<VideoItem>
     with AutomaticKeepAliveClientMixin {
   final MeeduPlayerController _controller = MeeduPlayerController(
-      screenManager: const ScreenManager(orientations: [
-        DeviceOrientation.portraitUp,
-      ]),
-      enabledControls: const EnabledControls(doubleTapToSeek: false));
+    screenManager: const ScreenManager(
+      orientations: [DeviceOrientation.portraitUp],
+    ),
+    enabledControls: const EnabledControls(doubleTapToSeek: false),
+  );
 
   final ValueNotifier<bool> _visible = ValueNotifier(true);
 
@@ -92,11 +91,7 @@ class VideoItemState extends State<VideoItem>
         child: ValueListenableBuilder<bool>(
           valueListenable: _visible,
           builder: (_, visible, child) {
-            return visible
-                ? MeeduVideoPlayer(
-                    controller: _controller,
-                  )
-                : child!;
+            return visible ? MeeduVideoPlayer(controller: _controller) : child!;
           },
           child: Container(),
         ),

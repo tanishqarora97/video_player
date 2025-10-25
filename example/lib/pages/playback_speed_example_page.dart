@@ -12,10 +12,9 @@ class PlayBackSpeedExamplePage extends StatefulWidget {
 
 class _PlayBackSpeedExamplePageState extends State<PlayBackSpeedExamplePage> {
   final _controller = MeeduPlayerController(
-      screenManager: const ScreenManager(
-        forceLandScapeInFullscreen: false,
-      ),
-      enabledControls: const EnabledControls(doubleTapToSeek: false));
+    screenManager: const ScreenManager(forceLandScapeInFullscreen: false),
+    enabledControls: const EnabledControls(doubleTapToSeek: false),
+  );
 
   final ValueNotifier<double> _playbackSpeed = ValueNotifier(1);
 
@@ -23,7 +22,7 @@ class _PlayBackSpeedExamplePageState extends State<PlayBackSpeedExamplePage> {
     final options = [0.2, 0.5, 1.0, 2.0, 4.0];
     showCupertinoModalPopup(
       context: context,
-      builder: (_) => CupertinoActionSheet(
+      builder: (b) => CupertinoActionSheet(
         actions: List.generate(
           options.length,
           (index) => CupertinoActionSheetAction(
@@ -31,16 +30,14 @@ class _PlayBackSpeedExamplePageState extends State<PlayBackSpeedExamplePage> {
             onPressed: () {
               _playbackSpeed.value = options[index];
               // change the playback speed
-              _controller.setPlaybackSpeed(
-                _playbackSpeed.value,
-              );
+              _controller.setPlaybackSpeed(_playbackSpeed.value);
               // hide the modal
-              Navigator.maybePop(_);
+              Navigator.maybePop(b);
             },
           ),
         ),
         cancelButton: CupertinoActionSheetAction(
-          onPressed: () => Navigator.maybePop(_),
+          onPressed: () => Navigator.maybePop(b),
           isDestructiveAction: true,
           child: const Text("Cancel"),
         ),
@@ -62,7 +59,7 @@ class _PlayBackSpeedExamplePageState extends State<PlayBackSpeedExamplePage> {
     super.dispose();
   }
 
-  _init() {
+  void _init() {
     _controller.setDataSource(
       DataSource(
         type: DataSourceType.network,

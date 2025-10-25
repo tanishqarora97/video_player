@@ -32,12 +32,8 @@ import 'package:logging/logging.dart';
 
 void main() {
   Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((record) {
-  });
-  initMeeduPlayer(
-    androidUseFVP: true,
-    iosUseFVP: false,
-  );
+  Logger.root.onRecord.listen((record) {});
+  initMeeduPlayer(androidUseFVP: true, iosUseFVP: false);
   runApp(const MyApp());
 }
 
@@ -111,10 +107,7 @@ class HomePageState extends State<HomePage> {
                   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                   child: Text(
                     'Basic Examples',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Wrap(
@@ -198,10 +191,7 @@ class HomePageState extends State<HomePage> {
                   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                   child: Text(
                     'Advanced Examples',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Wrap(
@@ -332,28 +322,27 @@ class HomePageState extends State<HomePage> {
                   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                   child: Text(
                     'List/Grid View Examples',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
-                Wrap(children: [
-                  buildButton(
-                    context,
-                    text: 'ListView',
-                    routeName: 'listview',
-                    description:
-                        'An example of how to display a list of videos using a ListView widget.',
-                  ),
-                  buildButton(
-                    context,
-                    text: 'GridView',
-                    routeName: 'gridview',
-                    description:
-                        'An example of how to display a grid of videos using a GridView widget.',
-                  ),
-                ]),
+                Wrap(
+                  children: [
+                    buildButton(
+                      context,
+                      text: 'ListView',
+                      routeName: 'listview',
+                      description:
+                          'An example of how to display a list of videos using a ListView widget.',
+                    ),
+                    buildButton(
+                      context,
+                      text: 'GridView',
+                      routeName: 'gridview',
+                      description:
+                          'An example of how to display a grid of videos using a GridView widget.',
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -362,10 +351,12 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildButton(BuildContext context,
-      {required String text,
-      required String description,
-      required String routeName}) {
+  Widget buildButton(
+    BuildContext context, {
+    required String text,
+    required String description,
+    required String routeName,
+  }) {
     return Card(
       elevation: 30,
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -388,8 +379,11 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildDisabledButton(BuildContext context,
-      {required String text, required String description}) {
+  Widget buildDisabledButton(
+    BuildContext context, {
+    required String text,
+    required String description,
+  }) {
     return Card(
       elevation: 30,
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -403,10 +397,7 @@ class HomePageState extends State<HomePage> {
               style: const TextStyle(color: Colors.red, fontSize: 18.0),
             ),
             const SizedBox(height: 8.0),
-            Text(
-              description,
-              style: const TextStyle(fontSize: 14.0),
-            ),
+            Text(description, style: const TextStyle(fontSize: 14.0)),
           ],
         ),
       ),

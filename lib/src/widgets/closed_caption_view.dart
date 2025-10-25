@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu/rx/rx_builder.dart';
+
 import '../../meedu_player.dart';
 
 class ClosedCaptionView extends StatelessWidget {

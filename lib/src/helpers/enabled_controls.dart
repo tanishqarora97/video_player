@@ -40,53 +40,56 @@ class EnabledControls {
   ///on desktop, space Key toggle from playing to pause and pause to playing
   final bool spaceKeyTogglePlay;
 
-  const EnabledControls(
-      {this.desktopTapToPlayAndPause = true,
-      this.escapeKeyCloseFullScreen = true,
-      this.numPadDecimalKeyToggleFit = true,
-      this.enterKeyOpensFullScreen = true,
-      this.spaceKeyTogglePlay = true,
-      this.volumeArrows = true,
-      this.seekArrows = true,
-      this.seekSwipes = true,
-      this.volumeSwipes = true,
-      this.brightnessSwipes = true,
-      this.doubleTapToSeek = true,
-      this.desktopDoubleTapToFullScreen = true,
-      this.onLongPressSpeedUp = false});
+  const EnabledControls({
+    this.desktopTapToPlayAndPause = true,
+    this.escapeKeyCloseFullScreen = true,
+    this.numPadDecimalKeyToggleFit = true,
+    this.enterKeyOpensFullScreen = true,
+    this.spaceKeyTogglePlay = true,
+    this.volumeArrows = true,
+    this.seekArrows = true,
+    this.seekSwipes = true,
+    this.volumeSwipes = true,
+    this.brightnessSwipes = true,
+    this.doubleTapToSeek = true,
+    this.desktopDoubleTapToFullScreen = true,
+    this.onLongPressSpeedUp = false,
+  });
 
-  EnabledControls copyWith(
-      {bool? desktopTapToPlayAndPause,
-      bool? seekSwipes,
-      bool? volumeSwipes,
-      bool? brightnessSwipes,
-      bool? doubleTapToSeek,
-      bool? desktopDoubleTapToFullScreen,
-      bool? volumeArrows,
-      bool? seekArrows,
-      bool? escapeKeyCloseFullScreen,
-      bool? numPadDecimalKeyToggleFit,
-      bool? enterKeyOpensFullScreen,
-      bool? spaceKeyTogglePlay,
-      bool? onLongPressSpeedUp}) {
+  EnabledControls copyWith({
+    bool? desktopTapToPlayAndPause,
+    bool? seekSwipes,
+    bool? volumeSwipes,
+    bool? brightnessSwipes,
+    bool? doubleTapToSeek,
+    bool? desktopDoubleTapToFullScreen,
+    bool? volumeArrows,
+    bool? seekArrows,
+    bool? escapeKeyCloseFullScreen,
+    bool? numPadDecimalKeyToggleFit,
+    bool? enterKeyOpensFullScreen,
+    bool? spaceKeyTogglePlay,
+    bool? onLongPressSpeedUp,
+  }) {
     return EnabledControls(
-        desktopTapToPlayAndPause:
-            desktopTapToPlayAndPause ?? this.desktopTapToPlayAndPause,
-        seekSwipes: seekSwipes ?? this.seekSwipes,
-        volumeSwipes: volumeSwipes ?? this.volumeSwipes,
-        brightnessSwipes: brightnessSwipes ?? this.brightnessSwipes,
-        doubleTapToSeek: doubleTapToSeek ?? this.doubleTapToSeek,
-        desktopDoubleTapToFullScreen:
-            desktopDoubleTapToFullScreen ?? this.desktopDoubleTapToFullScreen,
-        volumeArrows: volumeArrows ?? this.volumeArrows,
-        seekArrows: seekArrows ?? this.seekArrows,
-        escapeKeyCloseFullScreen:
-            escapeKeyCloseFullScreen ?? this.escapeKeyCloseFullScreen,
-        numPadDecimalKeyToggleFit:
-            numPadDecimalKeyToggleFit ?? this.numPadDecimalKeyToggleFit,
-        enterKeyOpensFullScreen:
-            enterKeyOpensFullScreen ?? this.enterKeyOpensFullScreen,
-        spaceKeyTogglePlay: spaceKeyTogglePlay ?? this.spaceKeyTogglePlay,
-        onLongPressSpeedUp: onLongPressSpeedUp ?? this.onLongPressSpeedUp);
+      desktopTapToPlayAndPause:
+          desktopTapToPlayAndPause ?? this.desktopTapToPlayAndPause,
+      seekSwipes: seekSwipes ?? this.seekSwipes,
+      volumeSwipes: volumeSwipes ?? this.volumeSwipes,
+      brightnessSwipes: brightnessSwipes ?? this.brightnessSwipes,
+      doubleTapToSeek: doubleTapToSeek ?? this.doubleTapToSeek,
+      desktopDoubleTapToFullScreen:
+          desktopDoubleTapToFullScreen ?? this.desktopDoubleTapToFullScreen,
+      volumeArrows: volumeArrows ?? this.volumeArrows,
+      seekArrows: seekArrows ?? this.seekArrows,
+      escapeKeyCloseFullScreen:
+          escapeKeyCloseFullScreen ?? this.escapeKeyCloseFullScreen,
+      numPadDecimalKeyToggleFit:
+          numPadDecimalKeyToggleFit ?? this.numPadDecimalKeyToggleFit,
+      enterKeyOpensFullScreen:
+          enterKeyOpensFullScreen ?? this.enterKeyOpensFullScreen,
+      spaceKeyTogglePlay: spaceKeyTogglePlay ?? this.spaceKeyTogglePlay,
+      onLongPressSpeedUp: onLongPressSpeedUp ?? this.onLongPressSpeedUp,
+    );
   }
 }

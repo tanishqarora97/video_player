@@ -119,15 +119,16 @@ Hmm, lo mismo, Proog
 11
 00:00:28,646 --> 00:00:30,794
 Genial
-'''
+''',
   });
 
   @override
   void initState() {
     super.initState();
     _controller = MeeduPlayerController(
-        controlsStyle: ControlsStyle.primary,
-        enabledControls: const EnabledControls(doubleTapToSeek: false));
+      controlsStyle: ControlsStyle.primary,
+      enabledControls: const EnabledControls(doubleTapToSeek: false),
+    );
     _setDataSource();
   }
 
@@ -137,7 +138,7 @@ Genial
     super.dispose();
   }
 
-  _setDataSource() async {
+  Future<void> _setDataSource() async {
     await _controller.setDataSource(
       DataSource(
         source:
@@ -176,52 +177,53 @@ Genial
             return Row(
               children: [
                 ValueListenableBuilder(
-                    valueListenable: _selectedSubtitle,
-                    builder: (BuildContext context, String selectedValue, _) {
-                      return DropdownButton<String>(
-                        value: selectedValue,
-                        dropdownColor: Colors
-                            .white, // Set dropdown background color to white
-                        style: TextStyle(
-                          color:
-                              Colors.black, // Set dropdown text color to black
-                          fontSize: responsive.fontSize(),
-                        ),
-                        onChanged: (String? newValue) {
-                          _selectedSubtitle.value = newValue!;
-                          _controller.setClosedCaptionFile(
-                              _loadCaptions(_selectedSubtitle.value));
-                        },
-                        selectedItemBuilder: (context) =>
-                            _subtitles.value.keys.map((key) {
-                          return DropdownMenuItem<String>(
-                            value: key,
-                            child: Text(
-                              key,
-                              style: TextStyle(
-                                fontSize: responsive.fontSize(),
-                                color: Colors
-                                    .white, // Set widget text color to white
+                  valueListenable: _selectedSubtitle,
+                  builder: (BuildContext context, String selectedValue, _) {
+                    return DropdownButton<String>(
+                      value: selectedValue,
+                      dropdownColor: Colors
+                          .white, // Set dropdown background color to white
+                      style: TextStyle(
+                        color: Colors.black, // Set dropdown text color to black
+                        fontSize: responsive.fontSize(),
+                      ),
+                      onChanged: (String? newValue) {
+                        _selectedSubtitle.value = newValue!;
+                        _controller.setClosedCaptionFile(
+                          _loadCaptions(_selectedSubtitle.value),
+                        );
+                      },
+                      selectedItemBuilder: (context) =>
+                          _subtitles.value.keys.map((key) {
+                            return DropdownMenuItem<String>(
+                              value: key,
+                              child: Text(
+                                key,
+                                style: TextStyle(
+                                  fontSize: responsive.fontSize(),
+                                  color: Colors
+                                      .white, // Set widget text color to white
+                                ),
                               ),
-                            ),
-                          );
-                        }).toList(),
+                            );
+                          }).toList(),
 
-                        items: _subtitles.value.keys.map((key) {
-                          return DropdownMenuItem<String>(
-                            value: key,
-                            child: Text(
-                              key,
-                              style: TextStyle(
-                                fontSize: responsive.fontSize(),
-                                color: Colors
-                                    .black, // Set widget text color to white
-                              ),
+                      items: _subtitles.value.keys.map((key) {
+                        return DropdownMenuItem<String>(
+                          value: key,
+                          child: Text(
+                            key,
+                            style: TextStyle(
+                              fontSize: responsive.fontSize(),
+                              color: Colors
+                                  .black, // Set widget text color to white
                             ),
-                          );
-                        }).toList(),
-                      );
-                    }),
+                          ),
+                        );
+                      }).toList(),
+                    );
+                  },
+                ),
                 CupertinoButton(
                   padding: const EdgeInsets.all(5),
                   minSize: 25,
@@ -232,9 +234,7 @@ Genial
                         "CC",
                         style: TextStyle(
                           fontSize: fontSize > 18 ? 18 : fontSize,
-                          color: Colors.white.withOpacity(
-                            enabled ? 1 : 0.4,
-                          ),
+                          color: Colors.white.withOpacity(enabled ? 1 : 0.4),
                         ),
                       );
                     },

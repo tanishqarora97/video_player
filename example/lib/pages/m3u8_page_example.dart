@@ -10,16 +10,23 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dio/dio.dart' as dio;
 
-Future<String> getConvertFilesNameToLinks(
-    {String link = "", String content = "", bool video = true}) async {
-  final RegExp regExpListOfLinks =
-      RegExp("#EXTINF:.+?\n+(.+)", multiLine: true, caseSensitive: false);
+Future<String> getConvertFilesNameToLinks({
+  String link = "",
+  String content = "",
+  bool video = true,
+}) async {
+  final RegExp regExpListOfLinks = RegExp(
+    "#EXTINF:.+?\n+(.+)",
+    multiLine: true,
+    caseSensitive: false,
+  );
 
   final RegExp netRegxUrl = RegExp(r'^(http|https):\/\/([\w.]+\/?)\S*');
 
   Map<String, List<String?>> downloadLinks = {};
-  List<RegExpMatch> ListOfLinks =
-      regExpListOfLinks.allMatches(content).toList();
+  List<RegExpMatch> ListOfLinks = regExpListOfLinks
+      .allMatches(content)
+      .toList();
   String baseUrl = link;
   String mappingKey = video ? "video" : "audio";
   content = content.replaceAllMapped(regExpListOfLinks, (e) {
@@ -41,7 +48,7 @@ Future<List<Quality>> fromM3u8PlaylistUrl(
   bool descending = true,
   Map<String, String>? httpHeaders,
 }) async {
-//REGULAR EXPRESIONS//
+  //REGULAR EXPRESIONS//
   final RegExp netRegxUrl = RegExp(r'^(http|https):\/\/([\w.]+\/?)\S*');
   final RegExp netRegx2 = RegExp(r'(.*)\r?\/');
   final RegExp regExpPlaylist = RegExp(
@@ -55,7 +62,7 @@ Future<List<Quality>> fromM3u8PlaylistUrl(
     multiLine: true,
   );
 
-//GET m3u8 file
+  //GET m3u8 file
   late String content = "";
   final dio.Response response = await dio.Dio().get(
     m3u8,
@@ -76,9 +83,10 @@ Future<List<Quality>> fromM3u8PlaylistUrl(
     directoryPath = (await getTemporaryDirectory()).path;
   }
 
-//Find matches
-  List<RegExpMatch> playlistMatches =
-      regExpPlaylist.allMatches(content).toList();
+  //Find matches
+  List<RegExpMatch> playlistMatches = regExpPlaylist
+      .allMatches(content)
+      .toList();
   List<RegExpMatch> audioMatches = regExpAudio.allMatches(content).toList();
   Map<String, dynamic> sources = {};
   Map<String, String> sourceUrls = {};
@@ -96,7 +104,7 @@ Future<List<Quality>> fromM3u8PlaylistUrl(
       final String? dataURL = playlist!.group(0);
       playlistUrl = "$dataURL$sourceURL";
     }
-//Find audio url
+    //Find audio url
     for (final RegExpMatch audioMatch in audioMatches) {
       final String audio = (audioMatch.group(1)).toString();
       final bool isNetwork = netRegxUrl.hasMatch(audio);
@@ -142,28 +150,28 @@ Future<List<Quality>> fromM3u8PlaylistUrl(
   for (String key in sources.keys) {
     //talker.info(key);
     //talker.info(sources[key].readAsStringSync());
-    Qualities.add(Quality(
-      label: key,
-      file: sources[key]!,
-      isFile: true,
-      httpHeaders: httpHeaders,
-    ));
+    Qualities.add(
+      Quality(
+        label: key,
+        file: sources[key]!,
+        isFile: true,
+        httpHeaders: httpHeaders,
+      ),
+    );
   }
   for (String key in sourceUrls.keys) {
-    Qualities.add(Quality(
-      label: key,
-      url: sourceUrls[key]!,
-      isFile: false,
-      httpHeaders: httpHeaders,
-    ));
+    Qualities.add(
+      Quality(
+        label: key,
+        url: sourceUrls[key]!,
+        isFile: false,
+        httpHeaders: httpHeaders,
+      ),
+    );
   }
 
   //await addAutoSource();
-  Qualities.add(Quality(
-    label: "Auto",
-    url: m3u8,
-    httpHeaders: httpHeaders,
-  ));
+  Qualities.add(Quality(label: "Auto", url: m3u8, httpHeaders: httpHeaders));
   return Qualities;
 }
 
@@ -172,12 +180,13 @@ class Quality {
   Map<String, String>? httpHeaders;
   bool isFile = false;
   File? file;
-  Quality(
-      {this.url = "",
-      this.label = "",
-      this.httpHeaders,
-      this.isFile = false,
-      this.file});
+  Quality({
+    this.url = "",
+    this.label = "",
+    this.httpHeaders,
+    this.isFile = false,
+    this.file,
+  });
   int quality() {
     if (label.contains("x")) {
       return int.parse(label.split("x")[0]);
@@ -203,13 +212,14 @@ class M3u8ExamplePage extends StatefulWidget {
 
 class _M3u8ExamplePageState extends State<M3u8ExamplePage> {
   final _controller = MeeduPlayerController(
-      screenManager: const ScreenManager(forceLandScapeInFullscreen: false),
-      enabledButtons: const EnabledButtons(
-        rewindAndfastForward: false,
-        pip: true,
-      ),
-      pipEnabled: true,
-      responsive: Responsive(buttonsSizeRelativeToScreen: 3));
+    screenManager: const ScreenManager(forceLandScapeInFullscreen: false),
+    enabledButtons: const EnabledButtons(
+      rewindAndfastForward: false,
+      pip: true,
+    ),
+    pipEnabled: true,
+    responsive: Responsive(buttonsSizeRelativeToScreen: 3),
+  );
   String fileName = "";
   List<Quality> _qualities = [];
 
@@ -228,11 +238,11 @@ class _M3u8ExamplePageState extends State<M3u8ExamplePage> {
     super.initState();
 
     // listen the video position
-    _currentPositionSubs = _controller.onPositionChanged.listen(
-      (Duration position) {
-        _currentPosition = position; // save the video position
-      },
-    );
+    _currentPositionSubs = _controller.onPositionChanged.listen((
+      Duration position,
+    ) {
+      _currentPosition = position; // save the video position
+    });
   }
 
   @override
@@ -248,8 +258,10 @@ class _M3u8ExamplePageState extends State<M3u8ExamplePage> {
     String path = parsedLink.path;
     String filename = basename(path);
     if (filename.substring(filename.lastIndexOf(".")).contains("?")) {
-      type = filename.substring(filename.lastIndexOf("."),
-          filename.substring(filename.lastIndexOf(".")).indexOf("?"));
+      type = filename.substring(
+        filename.lastIndexOf("."),
+        filename.substring(filename.lastIndexOf(".")).indexOf("?"),
+      );
     } else {
       type = filename.substring(filename.lastIndexOf("."));
     }
@@ -294,26 +306,23 @@ class _M3u8ExamplePageState extends State<M3u8ExamplePage> {
   void _onChangeVideoQuality(BuildContext context) {
     showCupertinoModalPopup(
       context: context,
-      builder: (_) => CupertinoActionSheet(
-        actions: List.generate(
-          _qualities.length,
-          (index) {
-            final quality = _qualities[index];
-            return CupertinoActionSheetAction(
-              child: Text(
-                quality.label,
-                style: TextStyle(fontSize: _controller.responsive.fontSize()),
-              ),
-              onPressed: () {
-                _quality.value = quality; // change the video quality
-                _setDataSource(); // update the datasource
-                Navigator.maybePop(_);
-              },
-            );
-          },
-        ),
+      builder: (b) => CupertinoActionSheet(
+        actions: List.generate(_qualities.length, (index) {
+          final quality = _qualities[index];
+          return CupertinoActionSheetAction(
+            child: Text(
+              quality.label,
+              style: TextStyle(fontSize: _controller.responsive.fontSize()),
+            ),
+            onPressed: () {
+              _quality.value = quality; // change the video quality
+              _setDataSource(); // update the datasource
+              Navigator.maybePop(b);
+            },
+          );
+        }),
         cancelButton: CupertinoActionSheetAction(
-          onPressed: () => Navigator.maybePop(_),
+          onPressed: () => Navigator.maybePop(b),
           isDestructiveAction: true,
           child: const Text("Cancel"),
         ),
@@ -321,7 +330,7 @@ class _M3u8ExamplePageState extends State<M3u8ExamplePage> {
     );
   }
 
-  _playM3u8Video(String url) async {
+  Future<void> _playM3u8Video(String url) async {
     await getStreamUrls(url);
     if (_qualities.isEmpty) {
       throw Exception("No videos");
@@ -336,22 +345,14 @@ class _M3u8ExamplePageState extends State<M3u8ExamplePage> {
       child: Row(
         children: [
           CupertinoButton(
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
+            child: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
               // close the fullscreen
               Navigator.maybePop(context);
             },
           ),
           Expanded(
-            child: Text(
-              fileName,
-              style: const TextStyle(
-                color: Colors.white,
-              ),
-            ),
+            child: Text(fileName, style: const TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -359,14 +360,13 @@ class _M3u8ExamplePageState extends State<M3u8ExamplePage> {
   }
 
   TextEditingController url = TextEditingController(
-      text: "https://content.jwplatform.com/manifests/vM7nH0Kl.m3u8");
+    text: "https://content.jwplatform.com/manifests/vM7nH0Kl.m3u8",
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("play m3u8 video"),
-      ),
+      appBar: AppBar(title: const Text("play m3u8 video")),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
@@ -383,37 +383,35 @@ class _M3u8ExamplePageState extends State<M3u8ExamplePage> {
                 Expanded(
                   flex: 1,
                   child: ValueListenableBuilder<bool>(
-                      valueListenable: _loading,
-                      builder: (context, bool loading, child) {
-                        return loading
-                            ? const Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : ElevatedButton(
-                                onPressed: () async {
-                                  _loading.value = true;
-                                  _controller.pause();
+                    valueListenable: _loading,
+                    builder: (context, bool loading, child) {
+                      return loading
+                          ? const Center(child: CircularProgressIndicator())
+                          : ElevatedButton(
+                              onPressed: () async {
+                                _loading.value = true;
+                                _controller.pause();
 
-                                  _qualities.clear();
-                                  _quality.value = null;
-                                  _currentPosition = Duration.zero;
+                                _qualities.clear();
+                                _quality.value = null;
+                                _currentPosition = Duration.zero;
 
-                                  try {
-                                    await _playM3u8Video(url.text);
-                                  } catch (e) {
-                                    print(e);
-                                  }
+                                try {
+                                  await _playM3u8Video(url.text);
+                                } catch (e) {
+                                  print(e);
+                                }
 
-                                  _loading.value = false;
-                                },
-                                child: const Text("Play"));
-                      }),
-                )
+                                _loading.value = false;
+                              },
+                              child: const Text("Play"),
+                            );
+                    },
+                  ),
+                ),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Expanded(
               child: AspectRatio(
                 aspectRatio: 16 / 9,

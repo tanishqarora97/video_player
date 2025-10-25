@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../meedu_player.dart';
 import 'package:flutter/services.dart';
 
+import '../../../meedu_player.dart';
+
 Map<ShortcutActivator, void Function()> activatorsToCallBacks(
-    MeeduPlayerController controller, BuildContext context) {
+  MeeduPlayerController controller,
+  BuildContext context,
+) {
   return {
     const SingleActivator(LogicalKeyboardKey.arrowUp): () {
       if (!controller.enabledControls.volumeArrows) {
@@ -52,6 +55,6 @@ Map<ShortcutActivator, void Function()> activatorsToCallBacks(
         return;
       }
       controller.toggleVideoFit();
-    }
+    },
   };
 }

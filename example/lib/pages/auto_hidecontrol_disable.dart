@@ -39,15 +39,16 @@ class _AutoHideControlsDisableState extends State<AutoHideControlsDisable> {
     super.dispose();
   }
 
-  _init() async {
+  Future<void> _init() async {
     await _meeduPlayerController.setDataSource(
-        DataSource(
-          type: DataSourceType.network,
-          source:
-              "https://movietrailers.apple.com/movies/paramount/the-spongebob-movie-sponge-on-the-run/the-spongebob-movie-sponge-on-the-run-big-game_h720p.mov",
-        ),
-        autoplay: true,
-        looping: false);
+      DataSource(
+        type: DataSourceType.network,
+        source:
+            "https://movietrailers.apple.com/movies/paramount/the-spongebob-movie-sponge-on-the-run/the-spongebob-movie-sponge-on-the-run-big-game_h720p.mov",
+      ),
+      autoplay: true,
+      looping: false,
+    );
   }
 
   Widget get header {
@@ -56,10 +57,7 @@ class _AutoHideControlsDisableState extends State<AutoHideControlsDisable> {
       child: Row(
         children: [
           CupertinoButton(
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
+            child: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
               // close the fullscreen
               Navigator.maybePop(context);
@@ -73,9 +71,7 @@ class _AutoHideControlsDisableState extends State<AutoHideControlsDisable> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-      ),
+      appBar: AppBar(automaticallyImplyLeading: false),
       body: SafeArea(
         top: UniversalPlatform.isDesktop ? false : true,
         child: AspectRatio(

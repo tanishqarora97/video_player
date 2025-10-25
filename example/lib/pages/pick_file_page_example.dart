@@ -14,8 +14,9 @@ class PickFileExamplePage extends StatefulWidget {
 
 class _PickFileExamplePageState extends State<PickFileExamplePage> {
   final _controller = MeeduPlayerController(
-      screenManager: const ScreenManager(forceLandScapeInFullscreen: false),
-      enabledControls: const EnabledControls(doubleTapToSeek: false));
+    screenManager: const ScreenManager(forceLandScapeInFullscreen: false),
+    enabledControls: const EnabledControls(doubleTapToSeek: false),
+  );
   String fileName = "";
   @override
   void dispose() {
@@ -23,7 +24,7 @@ class _PickFileExamplePageState extends State<PickFileExamplePage> {
     super.dispose();
   }
 
-// Function to pick a file and return the file path
+  // Function to pick a file and return the file path
   Future<String?> pickFilePath() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -39,17 +40,14 @@ class _PickFileExamplePageState extends State<PickFileExamplePage> {
     }
   }
 
-// Function to play a video file using the provided file path
+  // Function to play a video file using the provided file path
   void playVideoFile(BuildContext context, String filePath) {
     File file = File(filePath);
 
     _controller.launchAsFullscreen(
       context,
       autoplay: true,
-      dataSource: DataSource(
-        file: file,
-        type: DataSourceType.file,
-      ),
+      dataSource: DataSource(file: file, type: DataSourceType.file),
       header: header,
     );
   }
@@ -60,22 +58,14 @@ class _PickFileExamplePageState extends State<PickFileExamplePage> {
       child: Row(
         children: [
           CupertinoButton(
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
+            child: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
               // close the fullscreen
               Navigator.maybePop(context);
             },
           ),
           Expanded(
-            child: Text(
-              fileName,
-              style: const TextStyle(
-                color: Colors.white,
-              ),
-            ),
+            child: Text(fileName, style: const TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -86,9 +76,7 @@ class _PickFileExamplePageState extends State<PickFileExamplePage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Pick File"),
-      ),
+      appBar: AppBar(title: const Text("Pick File")),
       body: Center(
         child: DropTarget(
           onDragDone: (details) {
@@ -113,18 +101,11 @@ class _PickFileExamplePageState extends State<PickFileExamplePage> {
               child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.upload_file,
-                    size: 50,
-                    color: Colors.grey,
-                  ),
+                  Icon(Icons.upload_file, size: 50, color: Colors.grey),
                   SizedBox(height: 16),
                   Text(
                     "Pick or drop file here",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

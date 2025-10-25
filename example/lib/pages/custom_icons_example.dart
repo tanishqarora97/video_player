@@ -24,15 +24,15 @@ class _CustomIconsExamplePageState extends State<CustomIconsExamplePage> {
   void initState() {
     super.initState();
     // The following line will enable the Android and iOS WakelockPlus.
-    _playerEventSubs = _meeduPlayerController.onPlayerStatusChanged.listen(
-      (PlayerStatus status) {
-        if (status == PlayerStatus.playing) {
-          WakelockPlus.enable();
-        } else {
-          WakelockPlus.disable();
-        }
-      },
-    );
+    _playerEventSubs = _meeduPlayerController.onPlayerStatusChanged.listen((
+      PlayerStatus status,
+    ) {
+      if (status == PlayerStatus.playing) {
+        WakelockPlus.enable();
+      } else {
+        WakelockPlus.disable();
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _init();
@@ -48,7 +48,7 @@ class _CustomIconsExamplePageState extends State<CustomIconsExamplePage> {
     super.dispose();
   }
 
-  _init() {
+  void _init() {
     _meeduPlayerController.setDataSource(
       DataSource(
         type: DataSourceType.network,

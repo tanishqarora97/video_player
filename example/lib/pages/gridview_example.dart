@@ -19,13 +19,12 @@ class _GridViewExampleState extends State<GridViewExample>
       appBar: AppBar(),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 500,
-            childAspectRatio: 16 / 9,
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5),
-        itemBuilder: (_, index) => VideoItem(
-          uniqueKey: "$index",
+          maxCrossAxisExtent: 500,
+          childAspectRatio: 16 / 9,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5,
         ),
+        itemBuilder: (_, index) => VideoItem(uniqueKey: "$index"),
         itemCount: 6,
       ),
     );
@@ -46,10 +45,11 @@ class VideoItem extends StatefulWidget {
 class VideoItemState extends State<VideoItem>
     with AutomaticKeepAliveClientMixin {
   final MeeduPlayerController _controller = MeeduPlayerController(
-      screenManager: const ScreenManager(orientations: [
-        DeviceOrientation.portraitUp,
-      ]),
-      enabledControls: const EnabledControls(doubleTapToSeek: false));
+    screenManager: const ScreenManager(
+      orientations: [DeviceOrientation.portraitUp],
+    ),
+    enabledControls: const EnabledControls(doubleTapToSeek: false),
+  );
 
   final ValueNotifier<bool> _visible = ValueNotifier(true);
 
@@ -91,11 +91,7 @@ class VideoItemState extends State<VideoItem>
         child: ValueListenableBuilder<bool>(
           valueListenable: _visible,
           builder: (_, visible, child) {
-            return visible
-                ? MeeduVideoPlayer(
-                    controller: _controller,
-                  )
-                : child!;
+            return visible ? MeeduVideoPlayer(controller: _controller) : child!;
           },
           child: Container(),
         ),

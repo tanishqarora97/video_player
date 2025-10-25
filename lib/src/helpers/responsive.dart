@@ -47,10 +47,7 @@ class Responsive {
   });
 
   /// Sets the screen dimensions.
-  void setDimensions(
-    double widthProvided,
-    double heightProvided,
-  ) {
+  void setDimensions(double widthProvided, double heightProvided) {
     width = widthProvided;
     height = heightProvided;
     inch = sqrt((width * width) + (height * height));

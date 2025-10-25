@@ -30,14 +30,14 @@ class BarStyle {
     Color? buffered,
     Color? background,
     BorderRadius? borderRadius,
-  })  : width = double.infinity,
-        identifier = dot ?? Colors.white,
-        color = color ?? const Color(0xFF295acc),
-        secondBackground = buffered ?? Colors.white.withOpacity(0.3),
-        background = background ?? Colors.white.withOpacity(0.2),
-        borderRadius =
-            borderRadius ?? const BorderRadius.all(Radius.circular(5)),
-        identifierWidth = dotSize;
+  }) : width = double.infinity,
+       identifier = dot ?? Colors.white,
+       color = color ?? const Color(0xFF295acc),
+       secondBackground = buffered ?? Colors.white.withOpacity(0.3),
+       background = background ?? Colors.white.withOpacity(0.2),
+       borderRadius =
+           borderRadius ?? const BorderRadius.all(Radius.circular(5)),
+       identifierWidth = dotSize;
 
   /// The **[borderRadius]** that the VolumeBar will have
   ///
@@ -52,13 +52,13 @@ class BarStyle {
     Color? color,
     Color? background,
     BorderRadius? borderRadius,
-  })  : identifier = Colors.transparent,
-        color = color ?? Colors.white,
-        secondBackground = Colors.transparent,
-        background = background ?? Colors.white.withOpacity(0.2),
-        borderRadius =
-            borderRadius ?? const BorderRadius.all(Radius.circular(5)),
-        identifierWidth = 0.0;
+  }) : identifier = Colors.transparent,
+       color = color ?? Colors.white,
+       secondBackground = Colors.transparent,
+       background = background ?? Colors.white.withOpacity(0.2),
+       borderRadius =
+           borderRadius ?? const BorderRadius.all(Radius.circular(5)),
+       identifierWidth = 0.0;
 
   BarStyle.forward({
     this.width = 120,
@@ -68,10 +68,10 @@ class BarStyle {
     Color? identifier,
     this.identifierWidth = 2.0,
     BorderRadius? borderRadius,
-  })  : identifier = identifier ?? Colors.red,
-        color = color ?? Colors.white,
-        secondBackground = Colors.transparent,
-        background = background ?? Colors.white.withOpacity(0.2),
-        borderRadius =
-            borderRadius ?? const BorderRadius.all(Radius.circular(5));
+  }) : identifier = identifier ?? Colors.red,
+       color = color ?? Colors.white,
+       secondBackground = Colors.transparent,
+       background = background ?? Colors.white.withOpacity(0.2),
+       borderRadius =
+           borderRadius ?? const BorderRadius.all(Radius.circular(5));
 }

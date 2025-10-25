@@ -35,7 +35,7 @@ class _CustomControlsExamplePageState extends State<CustomControlsExamplePage> {
     super.dispose();
   }
 
-  _init() {
+  void _init() {
     _meeduPlayerController.setDataSource(
       DataSource(
         type: DataSourceType.network,
@@ -46,8 +46,9 @@ class _CustomControlsExamplePageState extends State<CustomControlsExamplePage> {
     );
 
     ///use this stream to listen the player data events like completed, playing, paused
-    _playerEventSubs =
-        _meeduPlayerController.onPlayerStatusChanged.listen((event) {
+    _playerEventSubs = _meeduPlayerController.onPlayerStatusChanged.listen((
+      event,
+    ) {
       print(event);
     });
   }
@@ -85,30 +86,29 @@ class _CustomControlsExamplePageState extends State<CustomControlsExamplePage> {
                       Row(
                         children: [
                           const SizedBox(width: 5),
-                          PlayPauseButton(
-                            size: responsive.buttonSize(),
-                          ),
+                          PlayPauseButton(size: responsive.buttonSize()),
                           const SizedBox(width: 5),
 
                           // START VIDEO DURATION
                           RxBuilder(
-                            (__) => Text(
+                            (_) => Text(
                               "${controller.duration.value.inMinutes >= 60 ? printDurationWithHours(controller.position.value) : printDuration(controller.position.value)}/${controller.duration.value.inMinutes >= 60 ? printDurationWithHours(controller.duration.value) : printDuration(controller.duration.value)}",
                               style: textStyle,
                             ),
                           ),
 
                           // START VIDEO DURATION
-
                           if (controller.enabledButtons.muteAndSound)
                             SizedBox(
                               width: responsive.wp(40),
                               child: RxBuilder(
-                                (__) => Row(
+                                (_) => Row(
                                   children: [
                                     Expanded(
-                                        child: MuteSoundButton(
-                                            responsive: responsive)),
+                                      child: MuteSoundButton(
+                                        responsive: responsive,
+                                      ),
+                                    ),
                                     !controller.mute.value
                                         ? Expanded(
                                             flex: 2,
@@ -132,18 +132,16 @@ class _CustomControlsExamplePageState extends State<CustomControlsExamplePage> {
                         children: [
                           if (controller.bottomRight != null) ...[
                             controller.bottomRight!,
-                            const SizedBox(width: 10)
+                            const SizedBox(width: 10),
                           ],
                           if (controller.enabledButtons.videoFit)
                             VideoFitButton(responsive: responsive),
                           if (controller.enabledButtons.fullscreen) ...[
-                            FullscreenButton(
-                              size: responsive.buttonSize(),
-                            ),
+                            FullscreenButton(size: responsive.buttonSize()),
                             const SizedBox(width: 5),
                           ],
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ],

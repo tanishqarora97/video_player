@@ -4,20 +4,20 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_meedu/rx.dart';
-import 'helpers/desktop_pip_bk.dart';
-import 'native/pip_manager.dart';
-import 'video_player_used.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../meedu_player.dart';
-import 'package:volume_controller/volume_controller.dart';
 import 'package:universal_platform/universal_platform.dart';
+import 'package:volume_controller/volume_controller.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:window_manager/window_manager.dart';
+
+import '../meedu_player.dart';
+import 'helpers/desktop_pip_bk.dart';
 import 'helpers/durations.dart' as du;
+import 'native/pip_manager.dart';
+import 'video_player_used.dart';
 
 /// An enumeration of the different styles that can be applied to controls, such
 /// as buttons and icons and layouts.

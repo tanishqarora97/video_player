@@ -12,9 +12,10 @@ class PortraitExamplePage extends StatefulWidget {
 
 class _PortraitExamplePageState extends State<PortraitExamplePage> {
   final _meeduPlayerController = MeeduPlayerController(
-      controlsStyle: ControlsStyle.primary,
-      enabledControls: const EnabledControls(doubleTapToSeek: false),
-      responsive: Responsive(buttonsSizeRelativeToScreen: 6));
+    controlsStyle: ControlsStyle.primary,
+    enabledControls: const EnabledControls(doubleTapToSeek: false),
+    responsive: Responsive(buttonsSizeRelativeToScreen: 6),
+  );
 
   StreamSubscription? _playerEventSubs;
 
@@ -33,7 +34,7 @@ class _PortraitExamplePageState extends State<PortraitExamplePage> {
     super.dispose();
   }
 
-  _init() {
+  void _init() {
     _meeduPlayerController.setDataSource(
       DataSource(
         type: DataSourceType.network,
@@ -51,9 +52,7 @@ class _PortraitExamplePageState extends State<PortraitExamplePage> {
       body: SafeArea(
         child: AspectRatio(
           aspectRatio: 9 / 16,
-          child: MeeduVideoPlayer(
-            controller: _meeduPlayerController,
-          ),
+          child: MeeduVideoPlayer(controller: _meeduPlayerController),
         ),
       ),
     );

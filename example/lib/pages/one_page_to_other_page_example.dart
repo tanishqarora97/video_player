@@ -13,9 +13,10 @@ class OnePageExample extends StatefulWidget {
 
 class _OnePageExampleState extends State<OnePageExample> {
   MeeduPlayerController? _meeduPlayerController = MeeduPlayerController(
-      controlsStyle: ControlsStyle.secondary,
-      manageWakeLock: false,
-      responsive: Responsive(buttonsSizeRelativeToScreen: 6));
+    controlsStyle: ControlsStyle.secondary,
+    manageWakeLock: false,
+    responsive: Responsive(buttonsSizeRelativeToScreen: 6),
+  );
 
   StreamSubscription? _playerEventSubs;
 
@@ -23,15 +24,15 @@ class _OnePageExampleState extends State<OnePageExample> {
   void initState() {
     super.initState();
     // The following line will enable the Android and iOS WakelockPlus.
-    _playerEventSubs = _meeduPlayerController!.onPlayerStatusChanged.listen(
-      (PlayerStatus status) {
-        if (status == PlayerStatus.playing) {
-          WakelockPlus.enable();
-        } else {
-          WakelockPlus.disable();
-        }
-      },
-    );
+    _playerEventSubs = _meeduPlayerController!.onPlayerStatusChanged.listen((
+      PlayerStatus status,
+    ) {
+      if (status == PlayerStatus.playing) {
+        WakelockPlus.enable();
+      } else {
+        WakelockPlus.disable();
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _init();
@@ -54,7 +55,7 @@ class _OnePageExampleState extends State<OnePageExample> {
     }
   }
 
-  _init() {
+  void _init() {
     _meeduPlayerController!.setDataSource(
       DataSource(
         type: DataSourceType.network,
@@ -66,33 +67,24 @@ class _OnePageExampleState extends State<OnePageExample> {
   }
 
   Future<void> _gotTo() async {
-    final route = MaterialPageRoute(
-      builder: (_) => const PageTwo(),
-    );
+    final route = MaterialPageRoute(builder: (_) => const PageTwo());
     Navigator.pushReplacement(context, route);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Page 1"),
-      ),
+      appBar: AppBar(title: const Text("Page 1")),
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
               flex: 5,
-              child: MeeduVideoPlayer(
-                controller: _meeduPlayerController!,
-              ),
+              child: MeeduVideoPlayer(controller: _meeduPlayerController!),
             ),
             const SizedBox(height: 2),
             Expanded(
-              child: TextButton(
-                onPressed: _gotTo,
-                child: const Text("Page 2"),
-              ),
+              child: TextButton(onPressed: _gotTo, child: const Text("Page 2")),
             ),
           ],
         ),
@@ -119,15 +111,15 @@ class PageTwoState extends State<PageTwo> {
   void initState() {
     super.initState();
     // The following line will enable the Android and iOS WakelockPlus.
-    _playerEventSubs = _meeduPlayerController.onPlayerStatusChanged.listen(
-      (PlayerStatus status) {
-        if (status == PlayerStatus.playing) {
-          WakelockPlus.enable();
-        } else {
-          WakelockPlus.disable();
-        }
-      },
-    );
+    _playerEventSubs = _meeduPlayerController.onPlayerStatusChanged.listen((
+      PlayerStatus status,
+    ) {
+      if (status == PlayerStatus.playing) {
+        WakelockPlus.enable();
+      } else {
+        WakelockPlus.disable();
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _init();
@@ -143,7 +135,7 @@ class PageTwoState extends State<PageTwo> {
     super.dispose();
   }
 
-  _init() {
+  void _init() {
     _meeduPlayerController.setDataSource(
       DataSource(
         type: DataSourceType.network,
@@ -157,15 +149,11 @@ class PageTwoState extends State<PageTwo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Page 2"),
-      ),
+      appBar: AppBar(title: const Text("Page 2")),
       body: SafeArea(
         child: AspectRatio(
           aspectRatio: 16 / 9,
-          child: MeeduVideoPlayer(
-            controller: _meeduPlayerController,
-          ),
+          child: MeeduVideoPlayer(controller: _meeduPlayerController),
         ),
       ),
     );

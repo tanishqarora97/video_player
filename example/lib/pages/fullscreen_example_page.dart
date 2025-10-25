@@ -33,8 +33,9 @@ class _FullscreenExamplePageState extends State<FullscreenExamplePage> {
   // );
 
   final MeeduPlayerController _meeduPlayerController = MeeduPlayerController(
-      colorTheme: Colors.blue,
-      enabledButtons: const EnabledButtons(rewindAndfastForward: false));
+    colorTheme: Colors.blue,
+    enabledButtons: const EnabledButtons(rewindAndfastForward: false),
+  );
   ValueNotifier<int> currentIndex = ValueNotifier(0);
   DataSource? _dataSource;
 
@@ -43,14 +44,14 @@ class _FullscreenExamplePageState extends State<FullscreenExamplePage> {
   @override
   void initState() {
     super.initState();
-    _subscription = _meeduPlayerController.onFullscreenChanged.listen(
-      (bool isFullscreen) {
-        if (!isFullscreen) {
-          // if the fullscreen page was closed
-          _dataSource = null;
-        }
-      },
-    );
+    _subscription = _meeduPlayerController.onFullscreenChanged.listen((
+      bool isFullscreen,
+    ) {
+      if (!isFullscreen) {
+        // if the fullscreen page was closed
+        _dataSource = null;
+      }
+    });
   }
 
   @override
@@ -63,7 +64,7 @@ class _FullscreenExamplePageState extends State<FullscreenExamplePage> {
   Widget get nextButton {
     return ValueListenableBuilder(
       valueListenable: currentIndex,
-      builder: (_, int index, __) {
+      builder: (_, int index, _) {
         final hasNext = index < videos.length - 1;
         return TextButton(
           onPressed: hasNext
@@ -86,16 +87,13 @@ class _FullscreenExamplePageState extends State<FullscreenExamplePage> {
   Widget get header {
     return ValueListenableBuilder(
       valueListenable: currentIndex,
-      builder: (_, int index, __) {
+      builder: (_, int index, _) {
         return Container(
           padding: const EdgeInsets.all(10),
           child: Row(
             children: [
               CupertinoButton(
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                ),
+                child: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
                   // close the fullscreen
                   Navigator.maybePop(context);
@@ -104,9 +102,7 @@ class _FullscreenExamplePageState extends State<FullscreenExamplePage> {
               Expanded(
                 child: Text(
                   videos[index],
-                  style: const TextStyle(
-                    color: Colors.white,
-                  ),
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ],
@@ -136,9 +132,7 @@ class _FullscreenExamplePageState extends State<FullscreenExamplePage> {
     } else {
       // update the player with new datasource and it doesn't re-launch the player
       await _meeduPlayerController.setDataSource(
-        _dataSource!.copyWith(
-          source: videos[index],
-        ),
+        _dataSource!.copyWith(source: videos[index]),
         seekTo: Duration.zero,
       );
     }

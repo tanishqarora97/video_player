@@ -16,7 +16,10 @@ class _DisabledButtonsExampleState extends State<DisabledButtonsExample> {
     controlsStyle: ControlsStyle.primary,
     manageWakeLock: false,
     enabledButtons: const EnabledButtons(
-        fullscreen: false, pip: false, rewindAndfastForward: false),
+      fullscreen: false,
+      pip: false,
+      rewindAndfastForward: false,
+    ),
   );
 
   StreamSubscription? _playerEventSubs;
@@ -25,15 +28,15 @@ class _DisabledButtonsExampleState extends State<DisabledButtonsExample> {
   void initState() {
     super.initState();
     // The following line will enable the Android and iOS WakelockPlus.
-    _playerEventSubs = _meeduPlayerController.onPlayerStatusChanged.listen(
-      (PlayerStatus status) {
-        if (status == PlayerStatus.playing) {
-          WakelockPlus.enable();
-        } else {
-          WakelockPlus.disable();
-        }
-      },
-    );
+    _playerEventSubs = _meeduPlayerController.onPlayerStatusChanged.listen((
+      PlayerStatus status,
+    ) {
+      if (status == PlayerStatus.playing) {
+        WakelockPlus.enable();
+      } else {
+        WakelockPlus.disable();
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _init();
@@ -49,7 +52,7 @@ class _DisabledButtonsExampleState extends State<DisabledButtonsExample> {
     super.dispose();
   }
 
-  _init() {
+  void _init() {
     _meeduPlayerController.setDataSource(
       DataSource(
         type: DataSourceType.network,
@@ -67,9 +70,7 @@ class _DisabledButtonsExampleState extends State<DisabledButtonsExample> {
       body: SafeArea(
         child: AspectRatio(
           aspectRatio: 16 / 9,
-          child: MeeduVideoPlayer(
-            controller: _meeduPlayerController,
-          ),
+          child: MeeduVideoPlayer(controller: _meeduPlayerController),
         ),
       ),
     );

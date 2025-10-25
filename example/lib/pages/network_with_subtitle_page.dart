@@ -19,8 +19,9 @@ class _NetworkWithSubtitlesPageState extends State<NetworkWithSubtitlesPage> {
   void initState() {
     super.initState();
     _controller = MeeduPlayerController(
-        controlsStyle: ControlsStyle.primary,
-        enabledControls: const EnabledControls(doubleTapToSeek: false));
+      controlsStyle: ControlsStyle.primary,
+      enabledControls: const EnabledControls(doubleTapToSeek: false),
+    );
     _setDataSource();
   }
 
@@ -30,7 +31,7 @@ class _NetworkWithSubtitlesPageState extends State<NetworkWithSubtitlesPage> {
     super.dispose();
   }
 
-  _setDataSource() async {
+  Future<void> _setDataSource() async {
     await _controller.setDataSource(
       DataSource(
         source:
@@ -126,9 +127,7 @@ Great
                     "CC",
                     style: TextStyle(
                       fontSize: fontSize > 18 ? 18 : fontSize,
-                      color: Colors.white.withOpacity(
-                        enabled ? 1 : 0.4,
-                      ),
+                      color: Colors.white.withOpacity(enabled ? 1 : 0.4),
                     ),
                   );
                 },

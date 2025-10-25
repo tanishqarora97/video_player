@@ -12,8 +12,9 @@ class SecondaryExamplePage extends StatefulWidget {
 
 class _SecondaryExamplePageState extends State<SecondaryExamplePage> {
   final _meeduPlayerController = MeeduPlayerController(
-      controlsStyle: ControlsStyle.secondary,
-      enabledButtons: const EnabledButtons(rewindAndfastForward: false));
+    controlsStyle: ControlsStyle.secondary,
+    enabledButtons: const EnabledButtons(rewindAndfastForward: false),
+  );
 
   StreamSubscription? _playerEventSubs;
 
@@ -32,7 +33,7 @@ class _SecondaryExamplePageState extends State<SecondaryExamplePage> {
     super.dispose();
   }
 
-  _init() {
+  void _init() {
     _meeduPlayerController.setDataSource(
       DataSource(
         type: DataSourceType.network,
@@ -50,9 +51,7 @@ class _SecondaryExamplePageState extends State<SecondaryExamplePage> {
       body: SafeArea(
         child: AspectRatio(
           aspectRatio: 16 / 9,
-          child: MeeduVideoPlayer(
-            controller: _meeduPlayerController,
-          ),
+          child: MeeduVideoPlayer(controller: _meeduPlayerController),
         ),
       ),
     );

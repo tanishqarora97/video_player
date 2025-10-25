@@ -12,7 +12,9 @@ class PlayerWithHeaderPage extends StatefulWidget {
 
 class _PlayerWithHeaderPageState extends State<PlayerWithHeaderPage> {
   final MeeduPlayerController _meeduPlayerController = MeeduPlayerController(
-      controlsStyle: ControlsStyle.secondary, manageWakeLock: false);
+    controlsStyle: ControlsStyle.secondary,
+    manageWakeLock: false,
+  );
 
   @override
   void initState() {
@@ -31,7 +33,7 @@ class _PlayerWithHeaderPageState extends State<PlayerWithHeaderPage> {
     super.dispose();
   }
 
-  _init() {
+  void _init() {
     _meeduPlayerController.setDataSource(
       DataSource(
         type: DataSourceType.network,
@@ -75,7 +77,7 @@ class _PlayerWithHeaderPageState extends State<PlayerWithHeaderPage> {
                         color: Colors.white,
                       ),
                       onPressed: () {},
-                    )
+                    ),
                   ],
                 ),
               );

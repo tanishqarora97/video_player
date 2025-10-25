@@ -14,8 +14,9 @@ class BasicExampleWithLoopingPage extends StatefulWidget {
 class _BasicExampleWithLoopingPageState
     extends State<BasicExampleWithLoopingPage> {
   final _meeduPlayerController = MeeduPlayerController(
-      controlsStyle: ControlsStyle.primary,
-      enabledControls: const EnabledControls(doubleTapToSeek: false));
+    controlsStyle: ControlsStyle.primary,
+    enabledControls: const EnabledControls(doubleTapToSeek: false),
+  );
 
   StreamSubscription? _playerEventSubs;
 
@@ -34,15 +35,16 @@ class _BasicExampleWithLoopingPageState
     super.dispose();
   }
 
-  _init() {
+  void _init() {
     _meeduPlayerController.setDataSource(
-        DataSource(
-          type: DataSourceType.network,
-          source:
-              "https://movietrailers.apple.com/movies/paramount/the-spongebob-movie-sponge-on-the-run/the-spongebob-movie-sponge-on-the-run-big-game_h720p.mov",
-        ),
-        autoplay: true,
-        looping: true);
+      DataSource(
+        type: DataSourceType.network,
+        source:
+            "https://movietrailers.apple.com/movies/paramount/the-spongebob-movie-sponge-on-the-run/the-spongebob-movie-sponge-on-the-run-big-game_h720p.mov",
+      ),
+      autoplay: true,
+      looping: true,
+    );
   }
 
   @override
@@ -52,9 +54,7 @@ class _BasicExampleWithLoopingPageState
       body: SafeArea(
         child: AspectRatio(
           aspectRatio: 16 / 9,
-          child: MeeduVideoPlayer(
-            controller: _meeduPlayerController,
-          ),
+          child: MeeduVideoPlayer(controller: _meeduPlayerController),
         ),
       ),
     );

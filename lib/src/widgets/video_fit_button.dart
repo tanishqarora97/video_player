@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../meedu_player.dart';
 
 class VideoFitButton extends StatelessWidget {

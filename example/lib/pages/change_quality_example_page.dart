@@ -6,10 +6,7 @@ import 'package:universal_videoplayer/meedu_player.dart';
 
 class Quality {
   final String url, label;
-  Quality({
-    required this.url,
-    required this.label,
-  });
+  Quality({required this.url, required this.label});
 }
 
 class ChangeQualityExamplePage extends StatefulWidget {
@@ -22,9 +19,7 @@ class ChangeQualityExamplePage extends StatefulWidget {
 
 class _ChangeQualityExamplePageState extends State<ChangeQualityExamplePage> {
   final _controller = MeeduPlayerController(
-    screenManager: const ScreenManager(
-      forceLandScapeInFullscreen: false,
-    ),
+    screenManager: const ScreenManager(forceLandScapeInFullscreen: false),
   );
 
   final _qualities = [
@@ -59,11 +54,11 @@ class _ChangeQualityExamplePageState extends State<ChangeQualityExamplePage> {
     _quality.value = _qualities[0]; // set the default video quality (480p)
 
     // listen the video position
-    _currentPositionSubs = _controller.onPositionChanged.listen(
-      (Duration position) {
-        _currentPosition = position; // save the video position
-      },
-    );
+    _currentPositionSubs = _controller.onPositionChanged.listen((
+      Duration position,
+    ) {
+      _currentPosition = position; // save the video position
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _setDataSource();
     });
@@ -79,23 +74,20 @@ class _ChangeQualityExamplePageState extends State<ChangeQualityExamplePage> {
   void _onChangeVideoQuality() {
     showCupertinoModalPopup(
       context: context,
-      builder: (_) => CupertinoActionSheet(
-        actions: List.generate(
-          _qualities.length,
-          (index) {
-            final quality = _qualities[index];
-            return CupertinoActionSheetAction(
-              child: Text(quality.label),
-              onPressed: () {
-                _quality.value = quality; // change the video quality
-                _setDataSource(); // update the datasource
-                Navigator.maybePop(_);
-              },
-            );
-          },
-        ),
+      builder: (b) => CupertinoActionSheet(
+        actions: List.generate(_qualities.length, (index) {
+          final quality = _qualities[index];
+          return CupertinoActionSheetAction(
+            child: Text(quality.label),
+            onPressed: () {
+              _quality.value = quality; // change the video quality
+              _setDataSource(); // update the datasource
+              Navigator.maybePop(b);
+            },
+          );
+        }),
         cancelButton: CupertinoActionSheetAction(
-          onPressed: () => Navigator.maybePop(_),
+          onPressed: () => Navigator.maybePop(b),
           isDestructiveAction: true,
           child: const Text("Cancel"),
         ),
@@ -106,10 +98,7 @@ class _ChangeQualityExamplePageState extends State<ChangeQualityExamplePage> {
   Future<void> _setDataSource() async {
     // set the data source and play the video in the last video position
     await _controller.setDataSource(
-      DataSource(
-        type: DataSourceType.network,
-        source: _quality.value!.url,
-      ),
+      DataSource(type: DataSourceType.network, source: _quality.value!.url),
       autoplay: true,
       seekTo: _currentPosition,
     );

@@ -3,11 +3,11 @@ import '../../meedu_player.dart';
 class CustomCallbacks {
   /// Callback for mobile: Triggered when a long press starts, typically used for speeding up the video.
   final void Function(MeeduPlayerController controller)?
-      onLongPressStartedCallback;
+  onLongPressStartedCallback;
 
   /// Callback for mobile: Triggered when a long press ends, typically used for slowing down the video.
   final void Function(MeeduPlayerController controller)?
-      onLongPressEndedCallback;
+  onLongPressEndedCallback;
 
   const CustomCallbacks({
     this.onLongPressStartedCallback,

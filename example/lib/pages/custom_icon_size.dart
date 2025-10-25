@@ -12,15 +12,16 @@ class CustomSizesExamplePage extends StatefulWidget {
 
 class _CustomSizesExamplePageState extends State<CustomSizesExamplePage> {
   final _meeduPlayerController = MeeduPlayerController(
-      controlsStyle: ControlsStyle.primary,
-      responsive: Responsive(
-        fontSizeRelativeToScreen: 2.5,
-        maxFontSize: 16,
-        iconsSizeRelativeToScreen: 10,
-        maxIconsSize: 100,
-        buttonsSizeRelativeToScreen: 10,
-        maxButtonsSize: 100,
-      ));
+    controlsStyle: ControlsStyle.primary,
+    responsive: Responsive(
+      fontSizeRelativeToScreen: 2.5,
+      maxFontSize: 16,
+      iconsSizeRelativeToScreen: 10,
+      maxIconsSize: 100,
+      buttonsSizeRelativeToScreen: 10,
+      maxButtonsSize: 100,
+    ),
+  );
 
   StreamSubscription? _playerEventSubs;
 
@@ -39,7 +40,7 @@ class _CustomSizesExamplePageState extends State<CustomSizesExamplePage> {
     super.dispose();
   }
 
-  _init() {
+  void _init() {
     _meeduPlayerController.setDataSource(
       DataSource(
         type: DataSourceType.network,
@@ -57,9 +58,7 @@ class _CustomSizesExamplePageState extends State<CustomSizesExamplePage> {
       body: SafeArea(
         child: AspectRatio(
           aspectRatio: 16 / 9,
-          child: MeeduVideoPlayer(
-            controller: _meeduPlayerController,
-          ),
+          child: MeeduVideoPlayer(controller: _meeduPlayerController),
         ),
       ),
     );

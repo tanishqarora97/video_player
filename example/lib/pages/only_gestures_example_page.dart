@@ -13,9 +13,10 @@ class OnlyGesturesExamplePage extends StatefulWidget {
 
 class _OnlyGesturesExamplePageState extends State<OnlyGesturesExamplePage> {
   final _meeduPlayerController = MeeduPlayerController(
-      controlsStyle: ControlsStyle.primary,
-      // enabledControls: EnabledControls(doubleTapToSeek: false),
-      enabledButtons: const EnabledButtons(rewindAndfastForward: false));
+    controlsStyle: ControlsStyle.primary,
+    // enabledControls: EnabledControls(doubleTapToSeek: false),
+    enabledButtons: const EnabledButtons(rewindAndfastForward: false),
+  );
 
   StreamSubscription? _playerEventSubs;
 
@@ -34,15 +35,16 @@ class _OnlyGesturesExamplePageState extends State<OnlyGesturesExamplePage> {
     super.dispose();
   }
 
-  _init() {
+  void _init() {
     _meeduPlayerController.setDataSource(
-        DataSource(
-          type: DataSourceType.network,
-          source:
-              "https://movietrailers.apple.com/movies/paramount/the-spongebob-movie-sponge-on-the-run/the-spongebob-movie-sponge-on-the-run-big-game_h720p.mov",
-        ),
-        autoplay: true,
-        looping: false);
+      DataSource(
+        type: DataSourceType.network,
+        source:
+            "https://movietrailers.apple.com/movies/paramount/the-spongebob-movie-sponge-on-the-run/the-spongebob-movie-sponge-on-the-run-big-game_h720p.mov",
+      ),
+      autoplay: true,
+      looping: false,
+    );
   }
 
   @override
@@ -52,9 +54,7 @@ class _OnlyGesturesExamplePageState extends State<OnlyGesturesExamplePage> {
       body: SafeArea(
         child: AspectRatio(
           aspectRatio: 16 / 9,
-          child: MeeduVideoPlayer(
-            controller: _meeduPlayerController,
-          ),
+          child: MeeduVideoPlayer(controller: _meeduPlayerController),
         ),
       ),
     );
