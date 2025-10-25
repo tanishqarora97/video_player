@@ -136,18 +136,6 @@ Future<List<Quality>> fromM3u8PlaylistUrl(
     }
   }
   List<Quality> Qualities = [];
-  addAutoSource() async {
-    final File file = File(path.join(directoryPath!, 'hls_Auto.m3u8'));
-    file.writeAsStringSync(
-      await getConvertFilesNameToLinks(link: m3u8, content: content),
-    );
-    Qualities.add(Quality(
-      label: "Auto",
-      isFile: true,
-      file: file,
-      httpHeaders: httpHeaders,
-    ));
-  }
 
   //if (descending) addAutoSource();
 

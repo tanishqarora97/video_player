@@ -6,12 +6,11 @@ import 'package:universal_platform/universal_platform.dart';
 
 class SecondaryBottomControls extends StatelessWidget {
   final Responsive responsive;
-  const SecondaryBottomControls({Key? key, required this.responsive})
-      : super(key: key);
+  const SecondaryBottomControls({super.key, required this.responsive});
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final p = MeeduPlayerController.of(context);
     final textStyle = TextStyle(
       color: Colors.white,
       fontSize: responsive.fontSize(),
@@ -35,28 +34,23 @@ class SecondaryBottomControls extends StatelessWidget {
               Row(
                 children: [
                   const SizedBox(width: 5),
-                  PlayPauseButton(
-                    size: responsive.buttonSize(),
-                  ),
+                  PlayPauseButton(size: responsive.buttonSize()),
                   const SizedBox(width: 5),
                   RxBuilder(
                     //observables: [_.duration, _.position],
-                    (__) {
+                    (z) {
                       String text = "";
-                      if (_.duration.value.inMinutes >= 60) {
+                      if (p.duration.value.inMinutes >= 60) {
                         // if the duration is >= 1 hour
                         text =
-                            "${printDurationWithHours(_.position.value)} / ${printDurationWithHours(_.duration.value)}";
+                            "${printDurationWithHours(p.position.value)} / ${printDurationWithHours(p.duration.value)}";
                       } else {
                         text =
-                            "${printDuration(_.position.value)} / ${printDuration(_.duration.value)}";
+                            "${printDuration(p.position.value)} / ${printDuration(p.duration.value)}";
                       }
                       return Padding(
                         padding: const EdgeInsets.only(right: 5),
-                        child: Text(
-                          text,
-                          style: textStyle,
-                        ),
+                        child: Text(text, style: textStyle),
                       );
                     },
                   ),
@@ -79,26 +73,24 @@ class SecondaryBottomControls extends StatelessWidget {
               ),
               Row(
                 children: [
-                  if (_.bottomRight != null) ...[
-                    _.bottomRight!,
-                    const SizedBox(width: 10)
+                  if (p.bottomRight != null) ...[
+                    p.bottomRight!,
+                    const SizedBox(width: 10),
                   ],
-                  if (_.enabledButtons.pip) PipButton(responsive: responsive),
+                  if (p.enabledButtons.pip) PipButton(responsive: responsive),
                   if (!UniversalPlatform.isDesktopOrWeb &&
-                      _.enabledButtons.lockControls)
+                      p.enabledButtons.lockControls)
                     LockButton(responsive: responsive),
-                  if (_.enabledButtons.videoFit)
+                  if (p.enabledButtons.videoFit)
                     VideoFitButton(responsive: responsive),
-                  if (_.enabledButtons.muteAndSound)
+                  if (p.enabledButtons.muteAndSound)
                     MuteSoundButton(responsive: responsive),
-                  if (_.enabledButtons.fullscreen) ...[
-                    FullscreenButton(
-                      size: responsive.buttonSize(),
-                    ),
+                  if (p.enabledButtons.fullscreen) ...[
+                    FullscreenButton(size: responsive.buttonSize()),
                     const SizedBox(width: 5),
                   ],
                 ],
-              )
+              ),
             ],
           ),
         ],

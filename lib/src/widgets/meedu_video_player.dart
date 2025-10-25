@@ -32,35 +32,42 @@ class MeeduVideoPlayer extends StatefulWidget {
     BuildContext context,
     MeeduPlayerController controller,
     Responsive responsive,
-  )? header;
+  )?
+  header;
 
   final Widget Function(
     BuildContext context,
     MeeduPlayerController controller,
     Responsive responsive,
-  )? bottomRight;
+  )?
+  bottomRight;
 
-  final CustomIcons Function(
-    Responsive responsive,
-  )? customIcons;
+  final CustomIcons Function(Responsive responsive)? customIcons;
 
   ///[customControls] this only needed when controlsStyle is [ControlsStyle.custom]
   final Widget Function(
     BuildContext context,
     MeeduPlayerController controller,
     Responsive responsive,
-  )? customControls;
+  )?
+  customControls;
 
   ///[videoOverlay] can be used to wrap the player in any widget, to apply custom gestures, or apply custom watermarks
   final Widget Function(
     BuildContext context,
     MeeduPlayerController controller,
     Responsive responsive,
-  )? videoOverlay;
+  )?
+  videoOverlay;
 
   ///[customCaptionView] when a custom view for the captions is needed
-  final Widget Function(BuildContext context, MeeduPlayerController controller,
-      Responsive responsive, String text)? customCaptionView;
+  final Widget Function(
+    BuildContext context,
+    MeeduPlayerController controller,
+    Responsive responsive,
+    String text,
+  )?
+  customCaptionView;
 
   ///[backgroundColor] video background color
   final Color backgroundColor;
@@ -77,18 +84,18 @@ class MeeduVideoPlayer extends StatefulWidget {
   /// displayed at an optimal position that doesn't obstruct other important
   /// elements of the video player interface.
   final double closedCaptionDistanceFromBottom;
-  const MeeduVideoPlayer(
-      {Key? key,
-      required this.controller,
-      this.header,
-      this.bottomRight,
-      this.customIcons,
-      this.customControls,
-      this.customCaptionView,
-      this.videoOverlay,
-      this.closedCaptionDistanceFromBottom = 40,
-      this.backgroundColor = Colors.black})
-      : super(key: key);
+  const MeeduVideoPlayer({
+    super.key,
+    required this.controller,
+    this.header,
+    this.bottomRight,
+    this.customIcons,
+    this.customControls,
+    this.customCaptionView,
+    this.videoOverlay,
+    this.closedCaptionDistanceFromBottom = 40,
+    this.backgroundColor = Colors.black,
+  });
 
   @override
   State<MeeduVideoPlayer> createState() => _MeeduVideoPlayerState();
@@ -100,8 +107,8 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
   double videoWidth(VideoPlayerController? controller) {
     double width = controller != null
         ? controller.value.size.width != 0
-            ? controller.value.size.width
-            : 640
+              ? controller.value.size.width
+              : 640
         : 640;
     return width;
     // if (width < max) {
@@ -114,8 +121,8 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
   double videoHeight(VideoPlayerController? controller) {
     double height = controller != null
         ? controller.value.size.height != 0
-            ? controller.value.size.height
-            : 480
+              ? controller.value.size.height
+              : 480
         : 480;
     return height;
     // if (height < max) {
@@ -151,62 +158,73 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
         child: MeeduPlayerProvider(
           controller: widget.controller,
           child: Container(
-              color: widget.backgroundColor,
-              child: LayoutBuilder(
-                builder: (ctx, constraints) {
-                  MeeduPlayerController _ = widget.controller;
-                  if (_.controlsEnabled) {
-                    _.responsive.setDimensions(
-                      constraints.maxWidth,
-                      constraints.maxHeight,
-                    );
-                  }
+            color: widget.backgroundColor,
+            child: LayoutBuilder(
+              builder: (ctx, constraints) {
+                MeeduPlayerController p = widget.controller;
+                if (p.controlsEnabled) {
+                  p.responsive.setDimensions(
+                    constraints.maxWidth,
+                    constraints.maxHeight,
+                  );
+                }
 
-                  if (widget.customIcons != null) {
-                    _.customIcons = widget.customIcons!(_.responsive);
-                  }
+                if (widget.customIcons != null) {
+                  p.customIcons = widget.customIcons!(p.responsive);
+                }
 
-                  if (widget.header != null) {
-                    _.header = widget.header!(context, _, _.responsive);
-                  }
+                if (widget.header != null) {
+                  p.header = widget.header!(context, p, p.responsive);
+                }
 
-                  if (widget.bottomRight != null) {
-                    _.bottomRight =
-                        widget.bottomRight!(context, _, _.responsive);
-                  }
-                  if (widget.videoOverlay != null) {
-                    _.videoOverlay =
-                        widget.videoOverlay!(context, _, _.responsive);
-                  }
-                  if (widget.customControls != null) {
-                    _.customControls =
-                        widget.customControls!(context, _, _.responsive);
-                  }
-                  if (widget.customCaptionView != null) {
-                    _.customCaptionView = widget.customCaptionView;
-                  }
-                  return ExcludeFocus(
-                    excluding: _.excludeFocus,
-                    child: Stack(
-                      // clipBehavior: Clip.hardEdge,
-                      // fit: StackFit.,
-                      alignment: Alignment.center,
-                      children: [
-                        RxBuilder(
-                            //observables: [_.videoFit],
-                            (__) {
+                if (widget.bottomRight != null) {
+                  p.bottomRight = widget.bottomRight!(context, p, p.responsive);
+                }
+                if (widget.videoOverlay != null) {
+                  p.videoOverlay = widget.videoOverlay!(
+                    context,
+                    p,
+                    p.responsive,
+                  );
+                }
+                if (widget.customControls != null) {
+                  p.customControls = widget.customControls!(
+                    context,
+                    p,
+                    p.responsive,
+                  );
+                }
+                if (widget.customCaptionView != null) {
+                  p.customCaptionView = widget.customCaptionView;
+                }
+                return ExcludeFocus(
+                  excluding: p.excludeFocus,
+                  child: Stack(
+                    // clipBehavior: Clip.hardEdge,
+                    // fit: StackFit.,
+                    alignment: Alignment.center,
+                    children: [
+                      RxBuilder(
+                        //observables: [_.videoFit],
+                        (_) {
                           if (widget
-                              .controller.forceUIRefreshAfterFullScreen.value) {
+                              .controller
+                              .forceUIRefreshAfterFullScreen
+                              .value) {
                             log("NEEDS TO REFRASH UI");
                             refresh();
-                            widget.controller.forceUIRefreshAfterFullScreen
-                                .value = false;
+                            widget
+                                    .controller
+                                    .forceUIRefreshAfterFullScreen
+                                    .value =
+                                false;
                           }
                           // widget.controller.forceUIRefreshAfterFullScreen
                           //     .value = false;
-                          _.dataStatus.status.value;
-                          _.customDebugPrint(
-                              "Fit is ${widget.controller.videoFit.value}");
+                          p.dataStatus.status.value;
+                          p.customDebugPrint(
+                            "Fit is ${widget.controller.videoFit.value}",
+                          );
                           // customDebugPrint(
                           //     "constraints.maxWidth ${constraints.maxWidth}");
                           // _.customDebugPrint(
@@ -218,58 +236,52 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                               clipBehavior: Clip.hardEdge,
                               fit: widget.controller.videoFit.value,
                               child: SizedBox(
-                                width: videoWidth(
-                                  _.videoPlayerController,
-                                ),
-                                height: videoHeight(
-                                  _.videoPlayerController,
-                                ),
+                                width: videoWidth(p.videoPlayerController),
+                                height: videoHeight(p.videoPlayerController),
                                 // width: 640,
                                 // height: 480,
-                                child: _.videoPlayerController != null
+                                child: p.videoPlayerController != null
                                     ? VideoPlayer(
-                                        _.videoPlayerController!,
+                                        p.videoPlayerController!,
                                         key: _key,
                                       )
                                     : Container(),
                               ),
                             ),
                           );
-                        }),
-                        if (_.videoOverlay != null) _.videoOverlay!,
-                        ClosedCaptionView(
-                          responsive: _.responsive,
-                          distanceFromBottom:
-                              widget.closedCaptionDistanceFromBottom,
-                          customCaptionView: _.customCaptionView,
+                        },
+                      ),
+                      if (p.videoOverlay != null) p.videoOverlay!,
+                      ClosedCaptionView(
+                        responsive: p.responsive,
+                        distanceFromBottom:
+                            widget.closedCaptionDistanceFromBottom,
+                        customCaptionView: p.customCaptionView,
+                      ),
+                      if (p.controlsEnabled &&
+                          p.controlsStyle == ControlsStyle.primary)
+                        PrimaryVideoPlayerControls(responsive: p.responsive),
+                      if (p.controlsEnabled &&
+                          p.controlsStyle == ControlsStyle.primaryList)
+                        PrimaryListVideoPlayerControls(
+                          responsive: p.responsive,
                         ),
-                        if (_.controlsEnabled &&
-                            _.controlsStyle == ControlsStyle.primary)
-                          PrimaryVideoPlayerControls(
-                            responsive: _.responsive,
-                          ),
-                        if (_.controlsEnabled &&
-                            _.controlsStyle == ControlsStyle.primaryList)
-                          PrimaryListVideoPlayerControls(
-                            responsive: _.responsive,
-                          ),
-                        if (_.controlsEnabled &&
-                            _.controlsStyle == ControlsStyle.secondary)
-                          SecondaryVideoPlayerControls(
-                            responsive: _.responsive,
-                          ),
-                        if (_.controlsEnabled &&
-                            _.controlsStyle == ControlsStyle.custom &&
-                            _.customControls != null)
-                          ControlsContainer(
-                            responsive: _.responsive,
-                            child: _.customControls!,
-                          )
-                      ],
-                    ),
-                  );
-                },
-              )),
+                      if (p.controlsEnabled &&
+                          p.controlsStyle == ControlsStyle.secondary)
+                        SecondaryVideoPlayerControls(responsive: p.responsive),
+                      if (p.controlsEnabled &&
+                          p.controlsStyle == ControlsStyle.custom &&
+                          p.customControls != null)
+                        ControlsContainer(
+                          responsive: p.responsive,
+                          child: p.customControls!,
+                        ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
         ),
       ),
     );
@@ -290,10 +302,10 @@ class MeeduPlayerProvider extends InheritedWidget {
   final MeeduPlayerController controller;
 
   const MeeduPlayerProvider({
-    Key? key,
-    required Widget child,
+    super.key,
+    required super.child,
     required this.controller,
-  }) : super(key: key, child: child);
+  });
 
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) {

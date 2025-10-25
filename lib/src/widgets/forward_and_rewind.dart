@@ -5,14 +5,14 @@ import 'ripple_side.dart';
 import 'transitions.dart';
 
 class VideoCoreForwardAndRewind extends StatelessWidget {
-  const VideoCoreForwardAndRewind(
-      {Key? key,
-      required this.showRewind,
-      required this.showForward,
-      required this.forwardSeconds,
-      required this.rewindSeconds,
-      required this.responsive})
-      : super(key: key);
+  const VideoCoreForwardAndRewind({
+    super.key,
+    required this.showRewind,
+    required this.showForward,
+    required this.forwardSeconds,
+    required this.rewindSeconds,
+    required this.responsive,
+  });
 
   final bool showRewind, showForward;
   final int rewindSeconds, forwardSeconds;

@@ -5,31 +5,31 @@ import '../../meedu_player.dart';
 class PlayBackSpeedButton extends StatelessWidget {
   final Responsive responsive;
   final TextStyle textStyle;
-  const PlayBackSpeedButton(
-      {Key? key, required this.responsive, required this.textStyle})
-      : super(key: key);
+  const PlayBackSpeedButton({
+    super.key,
+    required this.responsive,
+    required this.textStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final p = MeeduPlayerController.of(context);
     return RxBuilder(
-        //observables: [_.fullscreen],
-        (__) {
-      return TextButton(
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.all(responsive.buttonSize() * 0.25),
-        ),
-        onPressed: () {
-          _.customDebugPrint("s");
-          _.togglePlaybackSpeed();
+      //observables: [_.fullscreen],
+      (_) {
+        return TextButton(
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.all(responsive.buttonSize() * 0.25),
+          ),
+          onPressed: () {
+            p.customDebugPrint("s");
+            p.togglePlaybackSpeed();
 
-          _.controls = true;
-        },
-        child: Text(
-          _.playbackSpeed.toString(),
-          style: textStyle,
-        ),
-      );
-    });
+            p.controls = true;
+          },
+          child: Text(p.playbackSpeed.toString(), style: textStyle),
+        );
+      },
+    );
   }
 }

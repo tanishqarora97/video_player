@@ -4,20 +4,20 @@ import '../../meedu_player.dart';
 
 class FullscreenButton extends StatelessWidget {
   final double size;
-  const FullscreenButton({Key? key, this.size = 30}) : super(key: key);
+  const FullscreenButton({super.key, this.size = 30});
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final p = MeeduPlayerController.of(context);
     return RxBuilder(
       //observables: [_.fullscreen],
-      (__) {
+      (_) {
         String iconPath = 'assets/icons/minimize.png';
-        Widget? customIcon = _.customIcons.minimize;
+        Widget? customIcon = p.customIcons.minimize;
 
-        if (!_.fullscreen.value) {
+        if (!p.fullscreen.value) {
           iconPath = 'assets/icons/fullscreen.png';
-          customIcon = _.customIcons.fullscreen;
+          customIcon = p.customIcons.fullscreen;
         }
         return PlayerButton(
           size: size,
@@ -27,7 +27,7 @@ class FullscreenButton extends StatelessWidget {
           iconPath: iconPath,
           customIcon: customIcon,
           onPressed: () {
-            _.toggleFullScreen(context);
+            p.toggleFullScreen(context);
           },
         );
       },

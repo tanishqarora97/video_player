@@ -1,4 +1,4 @@
-import 'package:auto_orientation/auto_orientation.dart';
+import 'package:auto_orientation_v2/auto_orientation_v2.dart';
 import 'package:flutter/services.dart';
 import '../../meedu_player.dart';
 import 'package:universal_platform/universal_platform.dart';
@@ -21,25 +21,28 @@ class ScreenManager {
   ///if system overlays should be hidden or not
   final bool hideSystemOverlay;
 
-  const ScreenManager(
-      {this.orientations = DeviceOrientation.values,
-      this.overlays = SystemUiOverlay.values,
-      this.forceLandScapeInFullscreen = true,
-      this.systemUiMode,
-      this.hideSystemOverlay = true});
+  const ScreenManager({
+    this.orientations = DeviceOrientation.values,
+    this.overlays = SystemUiOverlay.values,
+    this.forceLandScapeInFullscreen = true,
+    this.systemUiMode,
+    this.hideSystemOverlay = true,
+  });
 
   /// set the default orientations and overlays after exit of fullscreen
   Future<void> setDefaultOverlaysAndOrientations() async {
     await SystemChrome.setPreferredOrientations(orientations);
-    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: overlays);
+    await SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: overlays,
+    );
     if (UniversalPlatform.isIOS) {
       AutoOrientation.portraitAutoMode();
     }
   }
 
-  Future<void> setWindowsFullScreen(bool state, MeeduPlayerController _) async {
-    _.fullscreen.value = state;
+  Future<void> setWindowsFullScreen(bool state, MeeduPlayerController c) async {
+    c.fullscreen.value = state;
     //customDebugPrint(await windowManager.isFullScreen());
     // await windowManager.ensureInitialized();
     //await windowManager.setFullScreen(state);
@@ -55,13 +58,13 @@ class ScreenManager {
     }
   }
 
-  Future<void> setWebFullScreen(bool state, MeeduPlayerController _) async {
-    _.fullscreen.value = state;
+  Future<void> setWebFullScreen(bool state, MeeduPlayerController p) async {
+    p.fullscreen.value = state;
     try {
       FullScreenWindow.setFullScreen(state);
     } catch (e) {
       if (e.toString().contains("Document not active")) {
-        _.customDebugPrint("Document not active ignored");
+        p.customDebugPrint("Document not active ignored");
       } else {
         rethrow;
       }
@@ -72,19 +75,22 @@ class ScreenManager {
     if (hideSystemOverlay) {
       if (visible) {
         await SystemChrome.setEnabledSystemUIMode(
-            systemUiMode ?? SystemUiMode.immersive,
-            overlays: overlays);
+          systemUiMode ?? SystemUiMode.immersive,
+          overlays: overlays,
+        );
       } else {
         //customDebugPrint("Closed2");
-        await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-            overlays: []);
+        await SystemChrome.setEnabledSystemUIMode(
+          SystemUiMode.manual,
+          overlays: [],
+        );
       }
     }
   }
 
   /// hide the statusBar and the navigation bar, set only landscape mode only if forceLandScapeInFullscreen is true
   Future<void> setFullScreenOverlaysAndOrientations({
-    hideOverLays = true,
+    bool hideOverLays = true,
   }) async {
     forceLandScapeInFullscreen
         ? AutoOrientation.landscapeAutoMode(forceSensor: true)

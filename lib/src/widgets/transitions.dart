@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomOpacityTransition extends StatelessWidget {
-  const CustomOpacityTransition({
-    Key? key,
-    this.visible,
-    this.child,
-  }) : super(key: key);
+  const CustomOpacityTransition({super.key, this.visible, this.child});
 
   final bool? visible;
   final Widget? child;
@@ -20,6 +16,7 @@ class CustomOpacityTransition extends StatelessWidget {
     );
   }
 }
+
 /*
 class CustomSwipeTransition extends StatelessWidget {
   const CustomSwipeTransition({

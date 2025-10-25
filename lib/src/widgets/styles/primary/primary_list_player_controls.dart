@@ -7,13 +7,11 @@ import 'bottom_controls.dart';
 import 'primary_player_controls.dart';
 
 class PrimaryListVideoPlayerControls extends PrimaryVideoPlayerControls {
-  const PrimaryListVideoPlayerControls(
-      {Key? key, required Responsive responsive})
-      : super(key: key, responsive: responsive);
+  const PrimaryListVideoPlayerControls({super.key, required super.responsive});
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final p = MeeduPlayerController.of(context);
 
     return ControlsContainer(
       responsive: responsive,
@@ -23,75 +21,69 @@ class PrimaryListVideoPlayerControls extends PrimaryVideoPlayerControls {
         alignment: Alignment.center,
         children: [
           // RENDER A CUSTOM HEADER
-          if (_.header != null)
+          if (p.header != null)
             Positioned(
               left: 0,
               right: 0,
               top: 0,
               child: Padding(
                 padding: const EdgeInsets.only(top: 10.0),
-                child: _.header!,
+                child: p.header!,
               ),
             ),
-          SizedBox(
-            height: responsive.height,
-            width: responsive.width,
-          ),
+          SizedBox(height: responsive.height, width: responsive.width),
 
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (_.enabledButtons.rewindAndfastForward) ...[
+              if (p.enabledButtons.rewindAndfastForward) ...[
                 PlayerButton(
-                  onPressed: _.rewind,
+                  onPressed: p.rewind,
                   size: responsive.iconSize(),
                   iconColor: Colors.white,
                   backgroundColor: Colors.transparent,
                   iconPath: 'assets/icons/rewind.png',
-                  customIcon: _.customIcons.rewind,
+                  customIcon: p.customIcons.rewind,
                 ),
                 const SizedBox(width: 10),
               ],
-              if (_.enabledButtons.playPauseAndRepeat)
+              if (p.enabledButtons.playPauseAndRepeat)
                 RxBuilder(
-                    //observables: [_.showSwipeDuration],
-                    //observables: [_.swipeDuration],
-                    (__) {
-                  _.dataStatus.status.value;
-                  if (!_.showSwipeDuration.value &&
-                      !_.dataStatus.error &&
-                      !_.dataStatus.loading &&
-                      !_.isBuffering.value) {
-                    return PlayPauseButton(
-                      size: responsive.iconSize(),
-                    );
-                  } else {
-                    return Padding(
-                      padding: EdgeInsets.all(responsive.iconSize() * 0.25),
-                      child: SizedBox(
-                        width: responsive.iconSize(),
-                        height: responsive.iconSize(),
-                      ),
-                    );
-                  }
-                }),
-              if (_.enabledButtons.rewindAndfastForward) ...[
+                  //observables: [_.showSwipeDuration],
+                  //observables: [_.swipeDuration],
+                  (_) {
+                    p.dataStatus.status.value;
+                    if (!p.showSwipeDuration.value &&
+                        !p.dataStatus.error &&
+                        !p.dataStatus.loading &&
+                        !p.isBuffering.value) {
+                      return PlayPauseButton(size: responsive.iconSize());
+                    } else {
+                      return Padding(
+                        padding: EdgeInsets.all(responsive.iconSize() * 0.25),
+                        child: SizedBox(
+                          width: responsive.iconSize(),
+                          height: responsive.iconSize(),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              if (p.enabledButtons.rewindAndfastForward) ...[
                 const SizedBox(width: 10),
                 PlayerButton(
-                  onPressed: _.fastForward,
+                  onPressed: p.fastForward,
                   iconColor: Colors.white,
                   backgroundColor: Colors.transparent,
                   size: responsive.iconSize(),
                   iconPath: 'assets/icons/fast-forward.png',
-                  customIcon: _.customIcons.fastForward,
+                  customIcon: p.customIcons.fastForward,
                 ),
-              ]
+              ],
             ],
           ),
 
-          PrimaryBottomControls(
-            responsive: responsive,
-          ),
+          PrimaryBottomControls(responsive: responsive),
         ],
       ),
     );

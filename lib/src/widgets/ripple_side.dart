@@ -4,10 +4,10 @@ enum RippleSide { left, right }
 
 class ForwardAndRewindRippleSide extends StatelessWidget {
   const ForwardAndRewindRippleSide({
-    Key? key,
+    super.key,
     required this.side,
     required this.text,
-  }) : super(key: key);
+  });
 
   final RippleSide side;
   final String text;
@@ -32,11 +32,14 @@ class ForwardAndRewindRippleSide extends StatelessWidget {
             side == RippleSide.left
                 ? const Icon(Icons.fast_rewind, color: Colors.white)
                 : const Icon(Icons.fast_forward, color: Colors.white),
-            Text(text,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold)),
+            Text(
+              text,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ),

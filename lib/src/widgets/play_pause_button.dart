@@ -4,11 +4,11 @@ import '../../meedu_player.dart';
 
 class PlayPauseButton extends StatelessWidget {
   final double size;
-  const PlayPauseButton({Key? key, this.size = 40}) : super(key: key);
+  const PlayPauseButton({super.key, this.size = 40});
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final p = MeeduPlayerController.of(context);
     return RxBuilder(
       //observables: [
       //  _.playerStatus.status,
@@ -16,7 +16,7 @@ class PlayPauseButton extends StatelessWidget {
       //  _.isBuffering,
       //  _.position
       //],
-      (__) {
+      (_) {
         // if (_.isBuffering.value) {
 
         //   return PlayerButton(
@@ -30,24 +30,24 @@ class PlayPauseButton extends StatelessWidget {
         // }
 
         String iconPath = 'assets/icons/repeat.png';
-        Widget? customIcon = _.customIcons.repeat;
-        if (_.playerStatus.playing) {
+        Widget? customIcon = p.customIcons.repeat;
+        if (p.playerStatus.playing) {
           iconPath = 'assets/icons/pause.png';
-          customIcon = _.customIcons.pause;
-        } else if (_.playerStatus.paused) {
+          customIcon = p.customIcons.pause;
+        } else if (p.playerStatus.paused) {
           iconPath = 'assets/icons/play.png';
-          customIcon = _.customIcons.play;
+          customIcon = p.customIcons.play;
         }
         return PlayerButton(
           backgroundColor: Colors.transparent,
           iconColor: Colors.white,
           onPressed: () {
-            if (_.playerStatus.playing) {
-              _.pause();
-            } else if (_.playerStatus.paused) {
-              _.play(hideControls: false);
+            if (p.playerStatus.playing) {
+              p.pause();
+            } else if (p.playerStatus.paused) {
+              p.play(hideControls: false);
             } else {
-              _.play(repeat: true, hideControls: false);
+              p.play(repeat: true, hideControls: false);
             }
           },
           size: size,

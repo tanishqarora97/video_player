@@ -10,7 +10,7 @@ class PlayerButton extends StatelessWidget {
   final Widget? customIcon;
 
   const PlayerButton({
-    Key? key,
+    super.key,
     this.size = 40,
     this.iconPath,
     required this.onPressed,
@@ -18,7 +18,7 @@ class PlayerButton extends StatelessWidget {
     this.backgroundColor = Colors.white54,
     this.iconColor = Colors.black,
     this.customIcon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,8 @@ class PlayerButton extends StatelessWidget {
         onPressed();
         MeeduPlayerController.of(context).controls = true;
       },
-      child: customIcon ??
+      child:
+          customIcon ??
           Container(
             width: size,
             height: size,

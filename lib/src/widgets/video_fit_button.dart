@@ -3,13 +3,13 @@ import '../../meedu_player.dart';
 
 class VideoFitButton extends StatelessWidget {
   final Responsive responsive;
-  const VideoFitButton({Key? key, required this.responsive}) : super(key: key);
+  const VideoFitButton({super.key, required this.responsive});
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final p = MeeduPlayerController.of(context);
     String iconPath = 'assets/icons/fit.png';
-    Widget? customIcon = _.customIcons.videoFit;
+    Widget? customIcon = p.customIcons.videoFit;
 
     return PlayerButton(
       size: responsive.buttonSize(),
@@ -19,8 +19,8 @@ class VideoFitButton extends StatelessWidget {
       iconPath: iconPath,
       customIcon: customIcon,
       onPressed: () {
-        _.customDebugPrint("toggleVideoFit");
-        _.toggleVideoFit();
+        p.customDebugPrint("toggleVideoFit");
+        p.toggleVideoFit();
       },
     );
   }

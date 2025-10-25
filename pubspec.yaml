@@ -1,7 +1,7 @@
 name: universal_videoplayer
 version: 4.3.1
 environment:
-  sdk: ">=2.16.2 <4.0.0"
+  sdk: ^3.9.2
   flutter: ">=2.5.0"
 topics:
   - video-player
@@ -12,35 +12,34 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  video_player: ^2.9.2
-  volume_controller: ^3.0.2
-  auto_orientation: ^2.3.1
-  screen_brightness: ^2.1.1
-  flutter_meedu: ^9.1.0
-  flutter_spinkit: ^5.1.0
-  meta: ^1.7.0
-  universal_platform: ^1.0.0+1
-  fullscreen_window: ^1.0.4
+  video_player: ^2.10.0
+  volume_controller: ^3.4.0
+  auto_orientation_v2: ^2.3.6
+  screen_brightness: ^2.1.7
+  flutter_meedu: ^9.2.1
+  flutter_spinkit: ^5.2.2
+  meta: ^1.16.0
+  universal_platform: ^1.1.0
+  fullscreen_window: ^1.2.0
   # video_player_cross_platform:
   #    path: ../../video_player_cross_platform
-  fvp: ^0.32.0
+  fvp: ^0.35.0
   # fvp:
   #   git: https://github.com/wang-bin/fvp
   # fvp:
   #   path: ../../fvp
-  window_manager: ^0.4.3
+  window_manager: ^0.5.1
   # window_manager:
   #   path: ../../window_manager
   # wakelock: ^0.6.1+2
-  wakelock_plus: ^1.2.4
-  shared_preferences: ^2.0.13
-  path_provider: ^2.0.6
+  wakelock_plus: ^1.4.0
+  shared_preferences: ^2.5.3
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -4,34 +4,35 @@ import '../../meedu_player.dart';
 
 class PipButton extends StatelessWidget {
   final Responsive responsive;
-  const PipButton({Key? key, required this.responsive}) : super(key: key);
+  const PipButton({super.key, required this.responsive});
 
   @override
   Widget build(BuildContext context) {
-    final _ = MeeduPlayerController.of(context);
+    final p = MeeduPlayerController.of(context);
     return RxBuilder(
-        // observables: [
-        //   _.pipAvailable,
-        //   _.fullscreen,
-        // ],
-        (__) {
-      if (!_.pipAvailable.value) return Container();
-      String iconPath = 'assets/icons/picture-in-picture.png';
-      Widget? customIcon = _.customIcons.pip;
-      if (_.isInPipMode.value) {
-        iconPath = 'assets/icons/exit_picture-in-picture.png';
-        customIcon = _.customIcons.exitPip;
-      }
-      return PlayerButton(
-        size: responsive.buttonSize(),
-        circle: false,
-        backgroundColor: Colors.transparent,
-        iconColor: Colors.white,
-        iconPath: iconPath,
-        customIcon: customIcon,
-        onPressed: () =>
-            _.isInPipMode.value ? _.closePip(context) : _.enterPip(context),
-      );
-    });
+      // observables: [
+      //   _.pipAvailable,
+      //   _.fullscreen,
+      // ],
+      (_) {
+        if (!p.pipAvailable.value) return Container();
+        String iconPath = 'assets/icons/picture-in-picture.png';
+        Widget? customIcon = p.customIcons.pip;
+        if (p.isInPipMode.value) {
+          iconPath = 'assets/icons/exit_picture-in-picture.png';
+          customIcon = p.customIcons.exitPip;
+        }
+        return PlayerButton(
+          size: responsive.buttonSize(),
+          circle: false,
+          backgroundColor: Colors.transparent,
+          iconColor: Colors.white,
+          iconPath: iconPath,
+          customIcon: customIcon,
+          onPressed: () =>
+              p.isInPipMode.value ? p.closePip(context) : p.enterPip(context),
+        );
+      },
+    );
   }
 }
