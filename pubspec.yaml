@@ -18,7 +18,7 @@ dependencies:
   auto_orientation_v2:
     git:
       url: https://github.com/tanishqarora97/auto_orientation_v2
-      ref: "121bd6f"
+      ref: "afc7ab3"
   screen_brightness: ^2.1.7
   flutter_meedu: ^9.2.1
   flutter_spinkit: ^5.2.2
