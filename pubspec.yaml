@@ -27,7 +27,7 @@ dependencies:
   fullscreen_window: ^1.2.0
   # video_player_cross_platform:
   #    path: ../../video_player_cross_platform
-  fvp: ^0.35.0
+  fvp: ^0.36.2
   # fvp:
   #   git: https://github.com/wang-bin/fvp
   # fvp:
