@@ -163,13 +163,15 @@ class _ControlsContainerState extends State<ControlsContainer> {
     MeeduPlayerController controller,
   ) {
     double diff = _verticalDragStartOffset.dy - localPosition.dy;
-    double volume = (diff / 500) + _onDragStartVolume;
+    double volume = ((diff / (controller.responsive.height * 0.55)) +
+            _onDragStartVolume)
+        .clamp(0.0, 1.0);
     if (volume >= 0 &&
         volume <= 1 &&
         differenceOfExists(
           (controller.volume.value * 100).round(),
           (volume * 100).round(),
-          2,
+          1,
         )) {
       controller.customDebugPrint("Volume $volume");
       //customDebugPrint("current ${(controller.volume.value*100).round()}");
@@ -225,7 +227,9 @@ class _ControlsContainerState extends State<ControlsContainer> {
     MeeduPlayerController controller,
   ) {
     double diff = _verticalDragStartOffset.dy - localPosition.dy;
-    double brightness = (diff / 500) + _onDragStartBrightness;
+    double brightness = ((diff / (controller.responsive.height * 0.55)) +
+            _onDragStartBrightness)
+        .clamp(0.0, 1.0);
     //customDebugPrint("New");
     //customDebugPrint((controller.brightness.value*100).round());
     //customDebugPrint((brightness*100).round());
@@ -234,7 +238,7 @@ class _ControlsContainerState extends State<ControlsContainer> {
         differenceOfExists(
           (controller.brightness.value * 100).round(),
           (brightness * 100).round(),
-          2,
+          1,
         )) {
       controller.customDebugPrint("brightness $brightness");
       //brightness
@@ -248,6 +252,7 @@ class _ControlsContainerState extends State<ControlsContainer> {
   ) async {
     controller.showBrightnessStatus.value = true;
     controller.showVolumeStatus.value = false;
+    isVolume = false;
 
     _currentBrightness.value = controller.brightness.value;
     _onDragStartBrightness = _currentBrightness.value;
@@ -299,34 +304,36 @@ class _ControlsContainerState extends State<ControlsContainer> {
           ),
         if (p.enabledOverlays.volume)
           RxBuilder(
-            //observables: [_.volume],
-            (_) => AnimatedOpacity(
-              duration: p.durations.volumeOverlayDuration,
-              opacity: p.showVolumeStatus.value ? 1 : 0,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: _LevelOverlay(
-                  value: p.volume.value,
-                  icon: Icons.volume_up_rounded,
-                  accent: p.colorTheme,
-                  height: widget.responsive.height / 2.4,
+            (_) => IgnorePointer(
+              child: AnimatedOpacity(
+                duration: p.durations.volumeOverlayDuration,
+                opacity: p.showVolumeStatus.value ? 1 : 0,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: _LevelOverlay(
+                    value: p.volume.value,
+                    icon: Icons.volume_up_rounded,
+                    accent: p.colorTheme,
+                    height: widget.responsive.height / 2.4,
+                  ),
                 ),
               ),
             ),
           ),
         if (p.enabledOverlays.brightness)
           RxBuilder(
-            //observables: [_.volume],
-            (_) => AnimatedOpacity(
-              duration: p.durations.brightnessOverlayDuration,
-              opacity: p.showBrightnessStatus.value ? 1 : 0,
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: _LevelOverlay(
-                  value: p.brightness.value,
-                  icon: Icons.wb_sunny_rounded,
-                  accent: p.colorTheme,
-                  height: widget.responsive.height / 2.4,
+            (_) => IgnorePointer(
+              child: AnimatedOpacity(
+                duration: p.durations.brightnessOverlayDuration,
+                opacity: p.showBrightnessStatus.value ? 1 : 0,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: _LevelOverlay(
+                    value: p.brightness.value,
+                    icon: Icons.wb_sunny_rounded,
+                    accent: p.colorTheme,
+                    height: widget.responsive.height / 2.4,
+                  ),
                 ),
               ),
             ),
@@ -583,6 +590,7 @@ class _ControlsContainerState extends State<ControlsContainer> {
 
   Widget videoControls(MeeduPlayerController p, BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onPanStart: UniversalPlatform.isDesktop ? (_) => windowDrag(p) : null,
       onTap: () => onTap(p),
       onLongPressStart:
@@ -604,10 +612,11 @@ class _ControlsContainerState extends State<ControlsContainer> {
               }
             }
           : null,
-      onHorizontalDragUpdate: (p.mobileControls && !widget.preventVerticalDrag)
+      onHorizontalDragUpdate:
+          (p.mobileControls && !widget.preventHorizontalDrag)
           ? (details) => onHorizontalDragUpdate(details, p)
           : null,
-      onHorizontalDragEnd: (p.mobileControls && !widget.preventVerticalDrag)
+      onHorizontalDragEnd: (p.mobileControls && !widget.preventHorizontalDrag)
           ? (details) => onHorizontalDragEnd(details, p)
           : null,
       onVerticalDragUpdate: (p.mobileControls && !widget.preventVerticalDrag)

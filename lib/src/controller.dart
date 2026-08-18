@@ -745,14 +745,12 @@ class MeeduPlayerController {
   Future<void> getCurrentBrightness() async {
     if (!desktopOrWeb && manageBrightness) {
       try {
-        _currentBrightness.value = await ScreenBrightness().current;
+        _currentBrightness.value =
+            await ScreenBrightness.instance.application;
       } catch (e) {
         customDebugPrint(e);
-        throw 'Failed to get current brightness';
-        //return 0;
       }
     }
-    //return 0;
   }
 
   Future<void> getCurrentVolume() async {
@@ -771,18 +769,16 @@ class MeeduPlayerController {
   }
 
   Future<void> setBrightness(double brightnes) async {
-    if (!manageBrightness) {
+    if (!manageBrightness || desktopOrWeb) {
       return;
     }
-    if (!desktopOrWeb) {
-      try {
-        brightness.value = brightnes;
-        ScreenBrightness().setScreenBrightness(brightnes);
-        setUserPreferenceForBrightness();
-      } catch (e) {
-        customDebugPrint(e);
-        throw 'Failed to set brightness';
-      }
+    final value = brightnes.clamp(0.0, 1.0);
+    try {
+      _currentBrightness.value = value;
+      await ScreenBrightness.instance.setApplicationScreenBrightness(value);
+      setUserPreferenceForBrightness();
+    } catch (e) {
+      customDebugPrint(e);
     }
   }
 
@@ -821,16 +817,13 @@ class MeeduPlayerController {
   }
 
   Future<void> resetBrightness() async {
-    if (!manageBrightness) {
+    if (!manageBrightness || desktopOrWeb) {
       return;
     }
-    if (!desktopOrWeb) {
-      try {
-        await ScreenBrightness().resetScreenBrightness();
-      } catch (e) {
-        customDebugPrint(e);
-        throw 'Failed to reset brightness';
-      }
+    try {
+      await ScreenBrightness.instance.resetApplicationScreenBrightness();
+    } catch (e) {
+      customDebugPrint(e);
     }
   }
 

@@ -9,30 +9,19 @@ class PipButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = MeeduPlayerController.of(context);
-    return RxBuilder(
-      // observables: [
-      //   _.pipAvailable,
-      //   _.fullscreen,
-      // ],
-      (_) {
-        if (!p.pipAvailable.value) return Container();
-        String iconPath = 'assets/icons/picture-in-picture.png';
-        Widget? customIcon = p.customIcons.pip;
-        if (p.isInPipMode.value) {
-          iconPath = 'assets/icons/exit_picture-in-picture.png';
-          customIcon = p.customIcons.exitPip;
-        }
-        return PlayerButton(
-          size: responsive.buttonSize(),
-          circle: false,
-          backgroundColor: Colors.transparent,
-          iconColor: Colors.white,
-          iconPath: iconPath,
-          customIcon: customIcon,
-          onPressed: () =>
-              p.isInPipMode.value ? p.closePip(context) : p.enterPip(context),
-        );
-      },
-    );
+    return RxBuilder((_) {
+      if (!p.pipAvailable.value) return const SizedBox.shrink();
+      final inPip = p.isInPipMode.value;
+      return PlayerButton(
+        size: responsive.buttonSize(),
+        icon: inPip
+            ? Icons.picture_in_picture_alt_rounded
+            : Icons.picture_in_picture_outlined,
+        iconColor: Colors.white,
+        customIcon: inPip ? p.customIcons.exitPip : p.customIcons.pip,
+        onPressed: () =>
+            inPip ? p.closePip(context) : p.enterPip(context),
+      );
+    });
   }
 }

@@ -10,33 +10,18 @@ class LockButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = MeeduPlayerController.of(context);
-    return RxBuilder(
-      // observables: [
-      //   _.lockAvailable,
-      // ],
-      (_) {
-        p
-            .lockedControls
-            .value; // this is the value that the rxbuilder will listen to (for updates)
-        if (UniversalPlatform.isDesktopOrWeb) return Container();
-        String iconPath = 'assets/icons/lock-screen.png';
-        Widget? customIcon = p.customIcons.lock;
-        if (!p.lockedControls.value) {
-          iconPath = 'assets/icons/exit_lock-screen.png';
-          customIcon = p.customIcons.unlock;
-        }
-        return PlayerButton(
-          size: responsive.buttonSize(),
-          circle: false,
-          backgroundColor: Colors.transparent,
-          iconColor: Colors.white,
-          iconPath: iconPath,
-          customIcon: customIcon,
-          onPressed: () => p.lockedControls.value
-              ? p.toggleLockScreenMobile()
-              : p.toggleLockScreenMobile(),
-        );
-      },
-    );
+    return RxBuilder((_) {
+      p.lockedControls.value;
+      if (UniversalPlatform.isDesktopOrWeb) return const SizedBox.shrink();
+      final locked = p.lockedControls.value;
+      return PlayerButton(
+        size: responsive.buttonSize(),
+        glass: locked,
+        icon: locked ? Icons.lock_rounded : Icons.lock_open_rounded,
+        iconColor: Colors.white,
+        customIcon: locked ? p.customIcons.lock : p.customIcons.unlock,
+        onPressed: p.toggleLockScreenMobile,
+      );
+    });
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_meedu/rx/rx_builder.dart';
 
 import '../../meedu_player.dart';
 
@@ -9,20 +10,19 @@ class VideoFitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = MeeduPlayerController.of(context);
-    String iconPath = 'assets/icons/fit.png';
-    Widget? customIcon = p.customIcons.videoFit;
 
-    return PlayerButton(
-      size: responsive.buttonSize(),
-      circle: false,
-      backgroundColor: Colors.transparent,
-      iconColor: Colors.white,
-      iconPath: iconPath,
-      customIcon: customIcon,
-      onPressed: () {
-        p.customDebugPrint("toggleVideoFit");
-        p.toggleVideoFit();
-      },
-    );
+    return RxBuilder((_) {
+      p.videoFit.value;
+      return PlayerButton(
+        size: responsive.buttonSize(),
+        icon: Icons.fit_screen_rounded,
+        iconColor: Colors.white,
+        customIcon: p.customIcons.videoFit,
+        onPressed: () {
+          p.customDebugPrint("toggleVideoFit");
+          p.toggleVideoFit();
+        },
+      );
+    });
   }
 }
