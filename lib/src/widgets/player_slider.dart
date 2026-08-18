@@ -8,72 +8,67 @@ class PlayerSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = MeeduPlayerController.of(context);
-    return Stack(
-      alignment: Alignment.centerLeft,
-      children: [
-        LayoutBuilder(
-          builder: (ctx, constraints) {
-            return RxBuilder(
-              //observables: [_.buffered, _.duration],
-              (_) {
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  color: Colors.white30,
-                  width: constraints.maxWidth * p.bufferedPercent.value,
-                  height: 3,
-                );
-              },
-            );
-          },
-        ),
-        RxBuilder(
-          //observables: [_.sliderPosition, _.duration],
-          (_) {
-            final double value = p.sliderPosition.value.inMilliseconds
-                .toDouble();
-            final double max = p.duration.value.inMilliseconds.toDouble();
-            // if (value > max || max <= 0) {
-            //   return Container();
-            // }
-            return Container(
-              constraints: const BoxConstraints(maxHeight: 30),
-              padding: const EdgeInsets.only(bottom: 8),
-              alignment: Alignment.center,
-              child: SliderTheme(
-                data: SliderThemeData(
-                  trackShape: MSliderTrackShape(),
-                  thumbColor: p.colorTheme,
-                  activeTrackColor: p.colorTheme,
-                  trackHeight: 10,
-                  thumbShape: const RoundSliderThumbShape(
-                    enabledThumbRadius: 4.0,
+    return LayoutBuilder(
+      builder: (ctx, constraints) {
+        return RxBuilder((_) {
+          final double maxMs = p.duration.value.inMilliseconds.toDouble();
+          final double value = p.sliderPosition.value.inMilliseconds
+              .toDouble()
+              .clamp(0, maxMs <= 0 ? 0 : maxMs);
+
+          return SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              trackHeight: 3,
+              overlayShape: const RoundSliderOverlayShape(overlayRadius: 12),
+              thumbShape: const RoundSliderThumbShape(
+                enabledThumbRadius: 6,
+                elevation: 0,
+              ),
+              trackShape: const _NetflixTrackShape(),
+              activeTrackColor: p.colorTheme,
+              inactiveTrackColor: Colors.white.withValues(alpha: 0.28),
+              thumbColor: p.colorTheme,
+              overlayColor: p.colorTheme.withValues(alpha: 0.18),
+            ),
+            child: Stack(
+              alignment: Alignment.centerLeft,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: FractionallySizedBox(
+                    widthFactor: p.bufferedPercent.value.clamp(0.0, 1.0),
+                    child: Container(
+                      height: 3,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.38),
+                        borderRadius: BorderRadius.circular(99),
+                      ),
+                    ),
                   ),
                 ),
-                child: Slider(
+                Slider(
                   min: 0,
-                  divisions: null,
-                  value: value,
-                  onChangeStart: (v) {
-                    p.onChangedSliderStart();
-                  },
+                  max: maxMs <= 0 ? 1 : maxMs,
+                  value: maxMs <= 0 ? 0 : value,
+                  onChangeStart: (_) => p.onChangedSliderStart(),
                   onChangeEnd: (v) {
                     p.onChangedSliderEnd();
                     p.seekTo(Duration(milliseconds: v.floor()));
                   },
-                  label: printDuration(p.sliderPosition.value),
-                  max: max,
                   onChanged: p.onChangedSlider,
                 ),
-              ),
-            );
-          },
-        ),
-      ],
+              ],
+            ),
+          );
+        });
+      },
     );
   }
 }
 
-class MSliderTrackShape extends RoundedRectSliderTrackShape {
+class _NetflixTrackShape extends RoundedRectSliderTrackShape {
+  const _NetflixTrackShape();
+
   @override
   Rect getPreferredRect({
     required RenderBox parentBox,
@@ -82,11 +77,15 @@ class MSliderTrackShape extends RoundedRectSliderTrackShape {
     bool isEnabled = false,
     bool isDiscrete = false,
   }) {
-    const double trackHeight = 1;
+    final double trackHeight = sliderTheme?.trackHeight ?? 3;
     final double trackLeft = offset.dx;
     final double trackTop =
-        offset.dy + (parentBox.size.height - trackHeight) / 2 + 4;
-    final double trackWidth = parentBox.size.width;
-    return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
+        offset.dy + (parentBox.size.height - trackHeight) / 2;
+    return Rect.fromLTWH(
+      trackLeft,
+      trackTop,
+      parentBox.size.width,
+      trackHeight,
+    );
   }
 }

@@ -84,7 +84,7 @@ class _YoutubeExamplePageState extends State<YoutubeExamplePage> {
   Future<void> getYoutubeStreamUrl(String youtubeUrl) async {
     YoutubeExplode yt = YoutubeExplode();
     if (kIsWeb) {
-      yt = YoutubeExplode(YoutubeHttpClient(CorsBypassClient()));
+      yt = YoutubeExplode(httpClient: YoutubeHttpClient(CorsBypassClient()));
     }
 
     Video video = await yt.videos.get(youtubeUrl);

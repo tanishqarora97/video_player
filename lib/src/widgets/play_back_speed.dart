@@ -17,17 +17,27 @@ class PlayBackSpeedButton extends StatelessWidget {
     return RxBuilder(
       //observables: [_.fullscreen],
       (_) {
-        return TextButton(
-          style: TextButton.styleFrom(
-            padding: EdgeInsets.all(responsive.buttonSize() * 0.25),
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: TextButton(
+            style: TextButton.styleFrom(
+              minimumSize: Size.zero,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(color: Colors.white.withValues(alpha: 0.35)),
+              ),
+              foregroundColor: Colors.white,
+            ),
+            onPressed: () {
+              p.togglePlaybackSpeed();
+              p.controls = true;
+            },
+            child: Text(
+              '${p.playbackSpeed}x',
+              style: textStyle.copyWith(fontWeight: FontWeight.w600),
+            ),
           ),
-          onPressed: () {
-            p.customDebugPrint("s");
-            p.togglePlaybackSpeed();
-
-            p.controls = true;
-          },
-          child: Text(p.playbackSpeed.toString(), style: textStyle),
         );
       },
     );
