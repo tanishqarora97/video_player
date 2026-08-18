@@ -310,7 +310,7 @@ class MeeduPlayerController {
   /// [errorText] message to show when the load process failed
   MeeduPlayerController({
     this.screenManager = const ScreenManager(),
-    this.colorTheme = Colors.redAccent,
+    this.colorTheme = const Color(0xFFE50914),
     Widget? loadingWidget,
     this.controlsEnabled = true,
     this.manageWakeLock = true,
@@ -356,7 +356,7 @@ class MeeduPlayerController {
     _errorText = errorText;
     tag = DateTime.now().microsecondsSinceEpoch.toString();
     this.loadingWidget =
-        loadingWidget ?? SpinKitWave(size: 30, color: colorTheme);
+        loadingWidget ?? SpinKitFadingCircle(size: 36, color: colorTheme);
     if ((UniversalPlatform.isWindows ||
         UniversalPlatform.isLinux ||
         UniversalPlatform.isMacOS ||

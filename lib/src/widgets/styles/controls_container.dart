@@ -269,10 +269,10 @@ class _ControlsContainerState extends State<ControlsContainer> {
               cursor: p.showControls.value
                   ? SystemMouseCursors.basic
                   : SystemMouseCursors.none,
-              onHover: (___) {
-                //customDebugPrint(___.delta);
+              onHover: (event) {
                 if (p.mouseMoveInitial < const Offset(75, 75).distance) {
-                  p.mouseMoveInitial = p.mouseMoveInitial + ___.delta.distance;
+                  p.mouseMoveInitial =
+                      p.mouseMoveInitial + event.delta.distance;
                 } else {
                   p.controls = true;
                 }
@@ -305,34 +305,11 @@ class _ControlsContainerState extends State<ControlsContainer> {
               opacity: p.showVolumeStatus.value ? 1 : 0,
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: SizedBox(
-                      height: widget.responsive.height / 2,
-                      width: 35,
-                      child: Stack(
-                        alignment: AlignmentDirectional.bottomCenter,
-                        children: [
-                          Container(color: Colors.black38),
-                          Container(
-                            height:
-                                p.volume.value * widget.responsive.height / 2,
-                            color: Colors.blue,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(5),
-                            child: const Icon(
-                              Icons.music_note,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                child: _LevelOverlay(
+                  value: p.volume.value,
+                  icon: Icons.volume_up_rounded,
+                  accent: p.colorTheme,
+                  height: widget.responsive.height / 2.4,
                 ),
               ),
             ),
@@ -345,36 +322,11 @@ class _ControlsContainerState extends State<ControlsContainer> {
               opacity: p.showBrightnessStatus.value ? 1 : 0,
               child: Align(
                 alignment: Alignment.centerRight,
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: SizedBox(
-                      height: widget.responsive.height / 2,
-                      width: 35,
-                      child: Stack(
-                        alignment: AlignmentDirectional.bottomCenter,
-                        children: [
-                          Container(color: Colors.black38),
-                          Container(
-                            height:
-                                p.brightness.value *
-                                widget.responsive.height /
-                                2,
-                            color: Colors.blue,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(5),
-                            child: const Icon(
-                              Icons.wb_sunny,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                child: _LevelOverlay(
+                  value: p.brightness.value,
+                  icon: Icons.wb_sunny_rounded,
+                  accent: p.colorTheme,
+                  height: widget.responsive.height / 2.4,
                 ),
               ),
             ),
@@ -390,14 +342,22 @@ class _ControlsContainerState extends State<ControlsContainer> {
               child: Visibility(
                 visible: p.showSwipeDuration.value,
                 child: Container(
-                  color: Colors.grey[900],
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      p.swipeDuration.value > 0
-                          ? "+ ${printDuration(Duration(seconds: p.swipeDuration.value))}"
-                          : "- ${printDuration(Duration(seconds: p.swipeDuration.value))}",
-                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.72),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
+                  child: Text(
+                    p.swipeDuration.value > 0
+                        ? "+ ${printDuration(Duration(seconds: p.swipeDuration.value))}"
+                        : "- ${printDuration(Duration(seconds: p.swipeDuration.value))}",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
@@ -416,13 +376,21 @@ class _ControlsContainerState extends State<ControlsContainer> {
               child: Visibility(
                 visible: p.videoFitChanged.value,
                 child: Container(
-                  color: Colors.grey[900],
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      p.videoFit.value.name[0].toUpperCase() +
-                          p.videoFit.value.name.substring(1),
-                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.72),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
+                  child: Text(
+                    p.videoFit.value.name[0].toUpperCase() +
+                        p.videoFit.value.name.substring(1),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
@@ -650,9 +618,34 @@ class _ControlsContainerState extends State<ControlsContainer> {
           : null,
       child: AnimatedContainer(
         duration: p.durations.controlsDuration,
-        color: p.showControls.value ? Colors.black26 : Colors.transparent,
+        color: Colors.transparent,
         child: Stack(
           children: [
+            IgnorePointer(
+              child: AnimatedOpacity(
+                duration: p.durations.controlsDuration,
+                opacity: p.showControls.value && !p.lockedControls.value
+                    ? 1
+                    : 0,
+                child: const DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xCC000000),
+                        Color(0x33000000),
+                        Color(0x00000000),
+                        Color(0x33000000),
+                        Color(0xE6000000),
+                      ],
+                      stops: [0.0, 0.18, 0.45, 0.72, 1.0],
+                    ),
+                  ),
+                  child: SizedBox.expand(),
+                ),
+              ),
+            ),
             if (p.enabledControls.doubleTapToSeek &&
                 (p.mobileControls) &&
                 !p.lockedControls.value)
@@ -723,3 +716,56 @@ class _ControlsContainerState extends State<ControlsContainer> {
     return Positioned.fill(child: controlsUI(p, context));
   }
 }
+
+class _LevelOverlay extends StatelessWidget {
+  final double value;
+  final IconData icon;
+  final Color accent;
+  final double height;
+
+  const _LevelOverlay({
+    required this.value,
+    required this.icon,
+    required this.accent,
+    required this.height,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 18),
+      child: Container(
+        width: 48,
+        height: height.clamp(120, 220),
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
+        decoration: BoxDecoration(
+          color: Colors.black.withValues(alpha: 0.62),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          children: [
+            Icon(icon, color: Colors.white, size: 18),
+            const SizedBox(height: 10),
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(99),
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Container(color: Colors.white.withValues(alpha: 0.18)),
+                    FractionallySizedBox(
+                      heightFactor: value.clamp(0.0, 1.0),
+                      widthFactor: 1,
+                      child: ColoredBox(color: accent),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+

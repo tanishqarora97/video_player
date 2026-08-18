@@ -16,12 +16,12 @@ class ForwardAndRewindRippleSide extends StatelessWidget {
   Widget build(BuildContext context) {
     //final style = VideoViewerStyle();
     //final ripple = style.forwardAndRewindStyle.ripple;
-    final ripple = Colors.grey[900]?.withOpacity(0.35);
+    final ripple = Colors.black.withValues(alpha: 0.45);
     return CustomPaint(
       size: Size.infinite,
       painter: side == RippleSide.left
-          ? _RippleLeftPainter(ripple!)
-          : _RippleRightPainter(ripple!),
+          ? _RippleLeftPainter(ripple)
+          : _RippleRightPainter(ripple),
       child: Padding(
         padding: side == RippleSide.left
             ? const EdgeInsets.only(right: 10)
@@ -30,14 +30,15 @@ class ForwardAndRewindRippleSide extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             side == RippleSide.left
-                ? const Icon(Icons.fast_rewind, color: Colors.white)
-                : const Icon(Icons.fast_forward, color: Colors.white),
+                ? const Icon(Icons.replay_10, color: Colors.white, size: 36)
+                : const Icon(Icons.forward_10, color: Colors.white, size: 36),
+            const SizedBox(height: 6),
             Text(
               text,
               style: const TextStyle(
                 color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],

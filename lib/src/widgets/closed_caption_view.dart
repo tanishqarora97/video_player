@@ -51,6 +51,14 @@ class ClosedCaptionView extends StatelessWidget {
                       textStyle: TextStyle(
                         color: Colors.white,
                         fontSize: responsive.fontSize(),
+                        fontWeight: FontWeight.w600,
+                        shadows: const [
+                          Shadow(
+                            color: Colors.black87,
+                            blurRadius: 8,
+                            offset: Offset(0, 1),
+                          ),
+                        ],
                       ),
                     ),
             );

@@ -26,18 +26,16 @@ class _PickFileExamplePageState extends State<PickFileExamplePage> {
 
   // Function to pick a file and return the file path
   Future<String?> pickFilePath() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
+    final files = await FilePicker.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['mov', 'avi', 'mp4', 'mkv'],
+      allowMultiple: false,
     );
 
-    if (result != null) {
-      String filePath = result.files.single.path!;
-
-      return filePath;
-    } else {
-      return null; // User canceled the picker
+    if (files.isNotEmpty) {
+      return files.single.path;
     }
+    return null;
   }
 
   // Function to play a video file using the provided file path
