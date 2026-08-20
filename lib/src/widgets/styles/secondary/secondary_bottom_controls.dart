@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu/rx/rx_builder.dart';
 import '../../../../meedu_player.dart';
-import '../../lock_button.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 class SecondaryBottomControls extends StatelessWidget {
   final Responsive responsive;
   const SecondaryBottomControls({super.key, required this.responsive});
 
+  String _format(Duration duration, Duration total) {
+    return total.inMinutes >= 60
+        ? printDurationWithHours(duration)
+        : printDuration(duration);
+  }
+
   @override
   Widget build(BuildContext context) {
     final p = MeeduPlayerController.of(context);
+    final iconSize = responsive.buttonSize();
     final textStyle = TextStyle(
       color: Colors.white.withValues(alpha: 0.92),
       fontSize: responsive.fontSize(),
@@ -28,50 +33,43 @@ class SecondaryBottomControls extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            const PlayerSlider(),
+            RxBuilder((_) {
+              return Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 4),
+                    child: Text(
+                      _format(p.position.value, p.duration.value),
+                      style: textStyle,
+                    ),
+                  ),
+                  const Expanded(child: PlayerSlider()),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4, right: 8),
+                    child: Text(
+                      _format(p.duration.value, p.duration.value),
+                      style: textStyle,
+                    ),
+                  ),
+                ],
+              );
+            }),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    const SizedBox(width: 8),
-                    PlayPauseButton(size: responsive.buttonSize()),
-                    const SizedBox(width: 8),
-                    RxBuilder((z) {
-                      final remaining = p.duration.value - p.position.value;
-                      final useHours = p.duration.value.inMinutes >= 60;
-                      final current = useHours
-                          ? printDurationWithHours(p.position.value)
-                          : printDuration(p.position.value);
-                      final left = useHours
-                          ? printDurationWithHours(remaining)
-                          : printDuration(remaining);
-                      return Text('$current  ·  -$left', style: textStyle);
-                    }),
-                  ],
-                ),
-                Row(
-                  children: [
-                    if (p.bottomRight != null) ...[
-                      p.bottomRight!,
-                      const SizedBox(width: 4),
-                    ],
-                    if (p.enabledButtons.pip) PipButton(responsive: responsive),
-                    if (!UniversalPlatform.isDesktopOrWeb &&
-                        p.enabledButtons.lockControls)
-                      LockButton(responsive: responsive),
-                    if (p.enabledButtons.videoFit)
-                      VideoFitButton(responsive: responsive),
-                    if (p.enabledButtons.muteAndSound)
-                      MuteSoundButton(responsive: responsive),
-                    if (p.enabledButtons.fullscreen) ...[
-                      FullscreenButton(size: responsive.buttonSize()),
-                      const SizedBox(width: 4),
-                    ],
-                  ],
-                ),
+                PlayPauseButton(size: iconSize),
+                const Spacer(),
+                if (p.bottomRight != null) ...[
+                  p.bottomRight!,
+                  const SizedBox(width: 4),
+                ],
+                if (p.enabledButtons.pip) PipButton(responsive: responsive),
+                if (p.enabledButtons.videoFit)
+                  VideoFitButton(responsive: responsive),
+                if (p.enabledButtons.muteAndSound)
+                  MuteSoundButton(responsive: responsive),
+                if (p.enabledButtons.fullscreen)
+                  FullscreenButton(size: iconSize),
               ],
             ),
           ],

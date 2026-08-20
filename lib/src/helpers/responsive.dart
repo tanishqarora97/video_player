@@ -41,9 +41,9 @@ class Responsive {
     this.fontSizeRelativeToScreen = 2.5,
     this.maxFontSize = 16,
     this.iconsSizeRelativeToScreen = 7,
-    this.maxIconsSize = 60,
-    this.buttonsSizeRelativeToScreen = 8,
-    this.maxButtonsSize = 60,
+    this.maxIconsSize = 40,
+    this.buttonsSizeRelativeToScreen = 7,
+    this.maxButtonsSize = 40,
   });
 
   /// Sets the screen dimensions.
@@ -59,10 +59,10 @@ class Responsive {
     return min(ip(iconsSizeRelativeToScreen), maxIconsSize);
   }
 
-  /// Calculates the actual size of a button, taking into account the relative
-  /// size and the maximum size.
+  /// Calculates the actual size of a button. Matches [iconSize] so every
+  /// control uses the same dimensions.
   double buttonSize() {
-    return min(ip(buttonsSizeRelativeToScreen), maxButtonsSize);
+    return iconSize();
   }
 
   /// Calculates the actual font size, taking into account the relative size

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu/rx/rx_builder.dart';
 import '../../../../meedu_player.dart';
-import '../../lock_button.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 class PrimaryBottomControls extends StatelessWidget {
   final Responsive responsive;
@@ -17,6 +15,7 @@ class PrimaryBottomControls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = MeeduPlayerController.of(context);
+    final iconSize = responsive.buttonSize();
     final textStyle = TextStyle(
       color: Colors.white.withValues(alpha: 0.92),
       fontSize: responsive.fontSize(),
@@ -35,15 +34,12 @@ class PrimaryBottomControls extends StatelessWidget {
           const SizedBox(width: 4),
         ],
         if (p.enabledButtons.pip) PipButton(responsive: responsive),
-        if (!UniversalPlatform.isDesktopOrWeb && p.enabledButtons.lockControls)
-          LockButton(responsive: responsive),
         if (p.enabledButtons.videoFit) VideoFitButton(responsive: responsive),
         if (p.enabledButtons.playBackSpeed)
           PlayBackSpeedButton(responsive: responsive, textStyle: textStyle),
         if (p.enabledButtons.muteAndSound)
           MuteSoundButton(responsive: responsive),
-        if (p.enabledButtons.fullscreen)
-          FullscreenButton(size: responsive.buttonSize()),
+        if (p.enabledButtons.fullscreen) FullscreenButton(size: iconSize),
       ],
     );
 
@@ -56,40 +52,28 @@ class PrimaryBottomControls extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const PlayerSlider(),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(12, 0, 4, 4),
-              child: (responsive.height / responsive.width > 1)
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RxBuilder((_) {
-                          final remaining = p.duration.value - p.position.value;
-                          return Text(
-                            '${_format(p.position.value, p.duration.value)}  ·  -${_format(remaining, p.duration.value)}',
-                            style: textStyle,
-                          );
-                        }),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: otherControls,
-                        ),
-                      ],
-                    )
-                  : Row(
-                      children: [
-                        RxBuilder((_) {
-                          final remaining = p.duration.value - p.position.value;
-                          return Text(
-                            '${_format(p.position.value, p.duration.value)}  ·  -${_format(remaining, p.duration.value)}',
-                            style: textStyle,
-                          );
-                        }),
-                        const Spacer(),
-                        otherControls,
-                      ],
+            RxBuilder((_) {
+              return Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 4),
+                    child: Text(
+                      _format(p.position.value, p.duration.value),
+                      style: textStyle,
                     ),
-            ),
+                  ),
+                  const Expanded(child: PlayerSlider()),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4, right: 8),
+                    child: Text(
+                      _format(p.duration.value, p.duration.value),
+                      style: textStyle,
+                    ),
+                  ),
+                ],
+              );
+            }),
+            Align(alignment: Alignment.centerRight, child: otherControls),
           ],
         ),
       ),

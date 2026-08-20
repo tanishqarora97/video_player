@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu/rx/rx_builder.dart';
 import '../../../meedu_player.dart';
-import '../lock_button.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -699,15 +698,18 @@ class _ControlsContainerState extends State<ControlsContainer> {
               ),
             ),
             Align(
-              alignment: Alignment.bottomRight,
-              child: AnimatedOpacity(
-                opacity: !(p.showControls.value && p.lockedControls.value)
-                    ? 0
-                    : 1,
-                duration: p.durations.controlsDuration,
-                child: IgnorePointer(
-                  ignoring: !(p.showControls.value && p.lockedControls.value),
-                  child: LockButton(responsive: p.responsive),
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8, right: 8),
+                child: AnimatedOpacity(
+                  opacity: !(p.showControls.value && p.lockedControls.value)
+                      ? 0
+                      : 1,
+                  duration: p.durations.controlsDuration,
+                  child: IgnorePointer(
+                    ignoring: !(p.showControls.value && p.lockedControls.value),
+                    child: LockButton(responsive: p.responsive),
+                  ),
                 ),
               ),
             ),

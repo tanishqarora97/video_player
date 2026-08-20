@@ -4,6 +4,8 @@ export 'fullscreen_button.dart';
 export 'fullscreen_page.dart';
 export 'meedu_video_player.dart';
 export 'mute_sound_button.dart';
+export 'lock_button.dart';
+export 'player_top_controls.dart';
 export 'pip_button.dart';
 export 'play_back_speed.dart';
 export 'play_pause_button.dart';

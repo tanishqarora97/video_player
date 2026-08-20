@@ -11,7 +11,7 @@ class PrimaryListVideoPlayerControls extends PrimaryVideoPlayerControls {
   @override
   Widget build(BuildContext context) {
     final p = MeeduPlayerController.of(context);
-    final centerSize = responsive.iconSize();
+    final size = responsive.buttonSize();
 
     return ControlsContainer(
       responsive: responsive,
@@ -20,16 +20,7 @@ class PrimaryListVideoPlayerControls extends PrimaryVideoPlayerControls {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          if (p.header != null)
-            Positioned(
-              left: 0,
-              right: 0,
-              top: 0,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8, 12, 8, 0),
-                child: p.header!,
-              ),
-            ),
+          PlayerTopControls(responsive: responsive),
           SizedBox(height: responsive.height, width: responsive.width),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -37,13 +28,13 @@ class PrimaryListVideoPlayerControls extends PrimaryVideoPlayerControls {
               if (p.enabledButtons.rewindAndfastForward) ...[
                 PlayerButton(
                   onPressed: p.rewind,
-                  size: centerSize * 0.78,
+                  size: size,
                   glass: true,
                   icon: Icons.replay_10_rounded,
                   iconColor: Colors.white,
                   customIcon: p.customIcons.rewind,
                 ),
-                SizedBox(width: centerSize * 0.35),
+                SizedBox(width: size * 0.35),
               ],
               if (p.enabledButtons.playPauseAndRepeat)
                 RxBuilder((_) {
@@ -52,18 +43,18 @@ class PrimaryListVideoPlayerControls extends PrimaryVideoPlayerControls {
                       !p.dataStatus.error &&
                       !p.dataStatus.loading &&
                       !p.isBuffering.value) {
-                    return PlayPauseButton(size: centerSize);
+                    return PlayPauseButton(size: size);
                   }
-                  return SizedBox(width: centerSize, height: centerSize);
+                  return SizedBox(width: size, height: size);
                 }),
               if (p.enabledButtons.rewindAndfastForward) ...[
-                SizedBox(width: centerSize * 0.35),
+                SizedBox(width: size * 0.35),
                 PlayerButton(
                   onPressed: p.fastForward,
                   glass: true,
                   icon: Icons.forward_10_rounded,
                   iconColor: Colors.white,
-                  size: centerSize * 0.78,
+                  size: size,
                   customIcon: p.customIcons.fastForward,
                 ),
               ],
